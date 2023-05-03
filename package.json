@@ -1,0 +1,9 @@
+{
+  "name": "one_tournament",
+  "version": "1.0.0",
+  "description": "app gestion torneos",
+  "main": "index.js",
+  "repository": "https://github.com/ErikPC/One_Tournament",
+  "author": "ErikPC <epardillo@cifpfbmoll.eu>",
+  "license": "MIT"
+}
