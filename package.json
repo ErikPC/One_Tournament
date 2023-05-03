@@ -6,6 +6,10 @@
   "repository": "https://github.com/ErikPC/One_Tournament",
   "author": "ErikPC <epardillo@cifpfbmoll.eu>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
   "devDependencies": {
     "dotenv": "^16.0.3"
   },
