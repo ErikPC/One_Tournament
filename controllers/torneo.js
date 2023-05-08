@@ -40,8 +40,23 @@ function deleteTorneo(req, res) {
       res.status(500).send({ message: err.message });
     });
 }
+
+function updateTorneo(req, res) {
+  let fecha = req.params.fecha;
+  let nombreTienda = req.params.nombreTienda;
+  let update = req.body;
+  Torneo.findOneAndUpdate({ fecha: fecha, nombreTienda: nombreTienda }, update)
+    .then((response) => {
+      res.status(200).send({ message: "Torneo actualizado correctamente" });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+}
+
 module.exports = {
   createTorneo,
   getTorneos,
   deleteTorneo,
+  updateTorneo,
 };
