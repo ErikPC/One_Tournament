@@ -8,4 +8,8 @@ api.get("/torneo", TorneoController.getTorneos);
 api.get("/torneo/:fecha/:nombreTienda", TorneoController.getTorneo);
 api.delete("/torneo/:fecha/:nombreTienda", TorneoController.deleteTorneo);
 api.put("/torneo/:fecha/:nombreTienda", TorneoController.updateTorneo);
+api.put(
+  "/torneo/:fecha/:nombreTienda/:jugador",
+  TorneoController.añadirParticipante
+);
 module.exports = api;

@@ -8,6 +8,7 @@ function createTorneo(req, res) {
     numeroParticipantes: req.body.numeroParticipantes,
     rondas: req.body.rondas,
     finalizada: req.body.finalizada,
+    jugadores: req.body.jugadores,
   });
 
   torneo
@@ -70,10 +71,37 @@ function getTorneo(req, res) {
     });
 }
 
+function añadirParticipante(req, res) {
+  let fecha = req.params.fecha;
+  let nombreTienda = req.params.nombreTienda;
+  let jugador = req.params.jugador;
+  let torneo = Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda });
+  torneo.then((response) => {
+    if (!response) {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    } else {
+      let jugadores = response.jugadores;
+      jugadores.push(jugador);
+      Torneo.findOneAndUpdate(
+        { fecha: fecha, nombreTienda: nombreTienda },
+        { jugadores: jugadores }
+      )
+        .then((response) => {
+          res.status(200).send({
+            message: "Jugador añadido correctamente",
+          });
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+    }
+  });
+}
 module.exports = {
   createTorneo,
   getTorneos,
   deleteTorneo,
   updateTorneo,
   getTorneo,
+  añadirParticipante,
 };
