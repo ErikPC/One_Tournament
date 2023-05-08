@@ -81,6 +81,15 @@ function añadirParticipante(req, res) {
       res.status(404).send({ message: "Torneo no encontrado" });
     } else {
       let jugadores = response.jugadores;
+      if (jugadores.includes(jugador)) {
+        res.status(400).send({ message: "Jugador ya añadido" });
+      }
+      if (jugadores.length >= response.numeroParticipantes) {
+        res.status(400).send({ message: "Torneo completo" });
+      }
+      if (response.finalizada) {
+        res.status(400).send({ message: "Torneo finalizado" });
+      }
       jugadores.push(jugador);
       Torneo.findOneAndUpdate(
         { fecha: fecha, nombreTienda: nombreTienda },
@@ -97,6 +106,7 @@ function añadirParticipante(req, res) {
     }
   });
 }
+
 module.exports = {
   createTorneo,
   getTorneos,
