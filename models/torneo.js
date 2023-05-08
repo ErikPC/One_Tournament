@@ -6,6 +6,8 @@ const torneoSchema = new Schema({
   nombreTienda: { type: String, required: true },
   fecha: { type: Date, required: true },
   numeroParticipantes: { type: Number, required: true },
+  rondas: { type: Number, required: true },
+  finalizada: { type: Boolean, required: true },
 });
 
 const Torneo = mongoose.model("Torneo", torneoSchema);
