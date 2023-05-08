@@ -54,9 +54,26 @@ function updateTorneo(req, res) {
     });
 }
 
+function getTorneo(req, res) {
+  let fecha = req.params.fecha;
+  let nombreTienda = req.params.nombreTienda;
+  Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda })
+    .then((response) => {
+      if (!response) {
+        res.status(404).send({ message: "Torneo no encontrado" });
+      } else {
+        res.status(200).send({ torneo: response });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+}
+
 module.exports = {
   createTorneo,
   getTorneos,
   deleteTorneo,
   updateTorneo,
+  getTorneo,
 };
