@@ -1,74 +1,72 @@
+const repository = require("../repository/repositoryTorneo");
 const Torneo = require("../models/torneo");
+async function createTorneo(req, res) {
+  try {
+    const torneoCreated = await repository.createTorneo(req.body);
 
-function createTorneo(req, res) {
-  const torneo = new Torneo({
-    nombreTorneo: req.body.nombreTorneo,
-    nombreTienda: req.body.nombreTienda,
-    fecha: req.body.fecha,
-    numeroParticipantes: req.body.numeroParticipantes,
-    rondas: req.body.rondas,
-    finalizada: req.body.finalizada,
-    jugadores: req.body.jugadores,
-  });
-
-  torneo
-    .save()
-    .then((response) => {
+    if (torneoCreated) {
       res.status(200).send({ message: "Torneo creado correctamente" });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-}
-function getTorneos(req, res) {
-  Torneo.find()
-    .then((response) => {
-      res.status(200).send({ torneos: response });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+    } else {
+      res.status(400).send({ message: "Error al crear torneo" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 }
 
-function deleteTorneo(req, res) {
-  let fecha = req.params.fecha;
-  let nombreTienda = req.params.nombreTienda;
-  Torneo.findOneAndDelete({ fecha: fecha, nombreTienda: nombreTienda })
-    .then((response) => {
+async function getTorneos(req, res) {
+  try {
+    var troneos = await repository.getTorneos();
+    res.status(200).send({ torneos: troneos });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
+async function deleteTorneo(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+    let torneo = await repository.deleteTorneo(fecha, nombreTienda);
+    if (torneo) {
       res.status(200).send({ message: "Torneo eliminado correctamente" });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+    } else {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 }
 
-function updateTorneo(req, res) {
-  let fecha = req.params.fecha;
-  let nombreTienda = req.params.nombreTienda;
-  let update = req.body;
-  Torneo.findOneAndUpdate({ fecha: fecha, nombreTienda: nombreTienda }, update)
-    .then((response) => {
+async function updateTorneo(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+    let update = req.body;
+    let torneo = await repository.updateTorneo(fecha, nombreTienda, update);
+    if (torneo) {
       res.status(200).send({ message: "Torneo actualizado correctamente" });
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+    } else {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 }
 
-function getTorneo(req, res) {
-  let fecha = req.params.fecha;
-  let nombreTienda = req.params.nombreTienda;
-  Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda })
-    .then((response) => {
-      if (!response) {
-        res.status(404).send({ message: "Torneo no encontrado" });
-      } else {
-        res.status(200).send({ torneo: response });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+async function getTorneo(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+    let torneo = await repository.getTorneo(fecha, nombreTienda);
+    if (torneo) {
+      res.status(200).send({ torneo: torneo });
+    } else {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 }
 
 function añadirParticipante(req, res) {
