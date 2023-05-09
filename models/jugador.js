@@ -21,6 +21,11 @@ const jugadorSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  resultado: {
+    type: String,
+    enum: ["W", "L", "D"],
+    default: "D",
+  },
 });
 
 module.exports = mongoose.model("Jugador", jugadorSchema);

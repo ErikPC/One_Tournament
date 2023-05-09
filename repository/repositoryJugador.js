@@ -26,6 +26,13 @@ function getPuntosTorneo(nombre) {
   return Jugador.findOne({ nombre: nombre }, { puntosTorneo: 1 });
 }
 
+function setResultado(nombre, resultado) {
+  return Jugador.findOneAndUpdate(
+    { nombre: nombre },
+    { $push: { resultados: resultado } }
+  );
+}
+
 module.exports = {
   createJugador,
   getJugadores,
@@ -33,4 +40,5 @@ module.exports = {
   updateJugador,
   getJugador,
   getPuntosTorneo,
+  setResultado,
 };

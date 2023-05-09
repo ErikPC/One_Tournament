@@ -1,4 +1,5 @@
 const repository = require("../repository/repositoryJugador");
+const Jugador = require("../models/jugador");
 
 async function createJugador(req, res) {
   try {
@@ -75,6 +76,22 @@ async function getPuntosTorneo(req, res) {
   }
 }
 
+async function setResultado(req, res) {
+  try {
+    let nombre = req.params.nombre;
+    let resultado = req.params.resultado;
+    let jugador = await Jugador.findOneAndUpdate(
+      { nombre: nombre },
+      { resultado: resultado }
+    );
+    if (jugador) {
+      res.status(200).send({ message: "Resultado actualizado correctamente" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
 module.exports = {
   getJugador,
   getJugadores,
@@ -82,4 +99,5 @@ module.exports = {
   updateJugador,
   createJugador,
   getPuntosTorneo,
+  setResultado,
 };
