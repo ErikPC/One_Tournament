@@ -12,4 +12,8 @@ api.put(
   "/torneo/:fecha/:nombreTienda/:jugador",
   TorneoController.añadirParticipante
 );
+api.get(
+  "/torneo/:fecha/:nombreTienda/jugadores",
+  TorneoController.getListaJugadores
+);
 module.exports = api;

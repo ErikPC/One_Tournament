@@ -105,6 +105,21 @@ function añadirParticipante(req, res) {
   });
 }
 
+async function getListaJugadores(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+    let torneo = await repository.getTorneo(fecha, nombreTienda);
+    if (torneo) {
+      res.status(200).send({ jugadores: torneo.jugadores });
+    } else {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
 module.exports = {
   createTorneo,
   getTorneos,
@@ -112,4 +127,5 @@ module.exports = {
   updateTorneo,
   getTorneo,
   añadirParticipante,
+  getListaJugadores,
 };
