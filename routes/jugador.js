@@ -8,5 +8,6 @@ api.get("/jugador", JugadorController.getJugadores);
 api.get("/jugador/:nombre", JugadorController.getJugador);
 api.delete("/jugador/:nombre", JugadorController.deleteJugador);
 api.put("/jugador/:nombre", JugadorController.updateJugador);
+api.get("/jugador/:nombre/puntosTorneo", JugadorController.getPuntosTorneo);
 
 module.exports = api;

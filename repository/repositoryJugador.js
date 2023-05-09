@@ -22,10 +22,15 @@ function getJugador(nombre) {
   return Jugador.findOne({ nombre: nombre });
 }
 
+function getPuntosTorneo(nombre) {
+  return Jugador.findOne({ nombre: nombre }, { puntosTorneo: 1 });
+}
+
 module.exports = {
   createJugador,
   getJugadores,
   deleteJugador,
   updateJugador,
   getJugador,
+  getPuntosTorneo,
 };

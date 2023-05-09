@@ -61,10 +61,25 @@ async function getJugador(req, res) {
   }
 }
 
+async function getPuntosTorneo(req, res) {
+  try {
+    let nombre = req.params.nombre;
+    let puntos = await repository.getPuntosTorneo(nombre);
+    if (puntos) {
+      res.status(200).send({ puntos: puntos });
+    } else {
+      res.status(404).send({ message: "Jugador no encontrado" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
 module.exports = {
   getJugador,
   getJugadores,
   deleteJugador,
   updateJugador,
   createJugador,
+  getPuntosTorneo,
 };
