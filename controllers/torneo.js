@@ -138,42 +138,17 @@ async function calculoRonda(req, res) {
 
     if (!torneo) {
       return res.status(404).send({ message: "Torneo no encontrado" });
+    } else if (torneo.finalizada) {
+      return res.status(400).send({ message: "Torneo finalizado" });
     } else if (torneo.rondas == 0) {
       await Torneo.findOneAndUpdate(
         { fecha: fecha, nombreTienda: nombreTienda },
         { finalizada: true }
       );
-      for (let jugador of jugadores) {
-        let jugadorDB = await Jugador.findOne({ nombre: jugador });
-        if (!jugadorDB) {
-          console.log(`Jugador '${jugador}' no encontrado`);
-          continue;
-        }
-        let puntosTorneo = jugadorDB.puntosTorneo;
-        await Jugador.findOneAndUpdate(
-          { nombre: jugador },
-          { puntosUltimoTorneo: puntosTorneo, puntosTorneo: 0 }
-        );
-      }
+      actualizarPuntosUltimoTorneoJugadores(jugadores);
       return res.status(200).send({ message: "Torneo finalizado" });
     }
-    for (let jugador of jugadores) {
-      // Actualizar puntos del jugador
-      let jugadorDB = await Jugador.findOne({ nombre: jugador });
-
-      if (!jugadorDB) {
-        console.log(`Jugador '${jugador}' no encontrado`);
-        continue;
-      }
-      let puntosTorneo = jugadorDB.puntosTorneo;
-      let resultado = jugadorDB.resultado;
-      let nuevosPuntos = calculoResultado.sumarPuntos(puntosTorneo, resultado);
-
-      await Jugador.findOneAndUpdate(
-        { nombre: jugador },
-        { puntosTorneo: nuevosPuntos }
-      );
-    }
+    actualizarPuntosTorneo(jugadores);
 
     // Actualizar ronda del torneo
     await Torneo.findOneAndUpdate(
@@ -188,7 +163,40 @@ async function calculoRonda(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
+async function actualizarPuntosUltimoTorneoJugadores(jugadores) {
+  for (let jugador of jugadores) {
+    let jugadorDB = await Jugador.findOne({ nombre: jugador });
+    if (!jugadorDB) {
+      console.log(`Jugador '${jugador}' no encontrado`);
+      continue;
+    }
+    let puntosTorneo = jugadorDB.puntosTorneo;
+    await Jugador.findOneAndUpdate(
+      { nombre: jugador },
+      { puntosUltimoTorneo: puntosTorneo, puntosTorneo: 0 }
+    );
+  }
+}
 
+async function actualizarPuntosTorneo(jugadores) {
+  for (let jugador of jugadores) {
+    // Actualizar puntos del jugador
+    let jugadorDB = await Jugador.findOne({ nombre: jugador });
+
+    if (!jugadorDB) {
+      console.log(`Jugador '${jugador}' no encontrado`);
+      continue;
+    }
+    let puntosTorneo = jugadorDB.puntosTorneo;
+    let resultado = jugadorDB.resultado;
+    let nuevosPuntos = calculoResultado.sumarPuntos(puntosTorneo, resultado);
+
+    await Jugador.findOneAndUpdate(
+      { nombre: jugador },
+      { puntosTorneo: nuevosPuntos }
+    );
+  }
+}
 module.exports = {
   createTorneo,
   getTorneos,
