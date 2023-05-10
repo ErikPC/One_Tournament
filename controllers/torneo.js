@@ -1,5 +1,9 @@
 const repository = require("../repository/repositoryTorneo");
+const Jugador = require("../models/jugador");
 const Torneo = require("../models/torneo");
+
+const calculoResultado = require("../domain/resultado");
+
 async function createTorneo(req, res) {
   try {
     const torneoCreated = await repository.createTorneo(req.body);
@@ -120,6 +124,71 @@ async function getListaJugadores(req, res) {
   }
 }
 
+async function calculoRonda(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+
+    let torneo = await Torneo.findOne({
+      fecha: fecha,
+      nombreTienda: nombreTienda,
+    });
+
+    let jugadores = torneo.jugadores;
+
+    if (!torneo) {
+      return res.status(404).send({ message: "Torneo no encontrado" });
+    } else if (torneo.rondas == 0) {
+      await Torneo.findOneAndUpdate(
+        { fecha: fecha, nombreTienda: nombreTienda },
+        { finalizada: true }
+      );
+      for (let jugador of jugadores) {
+        let jugadorDB = await Jugador.findOne({ nombre: jugador });
+        if (!jugadorDB) {
+          console.log(`Jugador '${jugador}' no encontrado`);
+          continue;
+        }
+        let puntosTorneo = jugadorDB.puntosTorneo;
+        await Jugador.findOneAndUpdate(
+          { nombre: jugador },
+          { puntosUltimoTorneo: puntosTorneo, puntosTorneo: 0 }
+        );
+      }
+      return res.status(200).send({ message: "Torneo finalizado" });
+    }
+    for (let jugador of jugadores) {
+      // Actualizar puntos del jugador
+      let jugadorDB = await Jugador.findOne({ nombre: jugador });
+
+      if (!jugadorDB) {
+        console.log(`Jugador '${jugador}' no encontrado`);
+        continue;
+      }
+      let puntosTorneo = jugadorDB.puntosTorneo;
+      let resultado = jugadorDB.resultado;
+      let nuevosPuntos = calculoResultado.sumarPuntos(puntosTorneo, resultado);
+
+      await Jugador.findOneAndUpdate(
+        { nombre: jugador },
+        { puntosTorneo: nuevosPuntos }
+      );
+    }
+
+    // Actualizar ronda del torneo
+    await Torneo.findOneAndUpdate(
+      { fecha: fecha, nombreTienda: nombreTienda },
+      { $inc: { rondas: -1 } }
+    );
+
+    res
+      .status(200)
+      .send({ message: "Cálculo de ronda realizado correctamente" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
+
 module.exports = {
   createTorneo,
   getTorneos,
@@ -128,4 +197,5 @@ module.exports = {
   getTorneo,
   añadirParticipante,
   getListaJugadores,
+  calculoRonda,
 };
