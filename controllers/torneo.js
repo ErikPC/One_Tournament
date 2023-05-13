@@ -73,12 +73,11 @@ async function getTorneo(req, res) {
   }
 }
 
-function añadirParticipante(req, res) {
+async function añadirParticipante(req, res) {
   let fecha = req.params.fecha;
   let nombreTienda = req.params.nombreTienda;
   let jugador = req.params.jugador;
-  let torneo = Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda });
-  torneo.then((response) => {
+  await repository.getTorneo(fecha, nombreTienda).then((response) => {
     if (!response) {
       res.status(404).send({ message: "Torneo no encontrado" });
     } else {
