@@ -1,7 +1,5 @@
 const repository = require("../repository/repositoryTorneo");
-const Jugador = require("../models/jugador");
-const Torneo = require("../models/torneo");
-
+const repositoryJugador = require("../repository/repositoryJugador");
 const calculoResultado = require("../domain/resultado");
 
 async function createTorneo(req, res) {
@@ -128,11 +126,7 @@ async function calculoRonda(req, res) {
     let fecha = req.params.fecha;
     let nombreTienda = req.params.nombreTienda;
 
-    let torneo = await Torneo.findOne({
-      fecha: fecha,
-      nombreTienda: nombreTienda,
-    });
-
+    let torneo = await repository.getTorneo(fecha, nombreTienda);
     let jugadores = torneo.jugadores;
 
     if (!torneo) {
@@ -150,11 +144,9 @@ async function calculoRonda(req, res) {
     actualizarPuntosTorneo(jugadores);
 
     // Actualizar ronda del torneo
-    await Torneo.findOneAndUpdate(
-      { fecha: fecha, nombreTienda: nombreTienda },
-      { $inc: { rondas: -1 } }
-    );
-
+    await repository.updateTorneo(fecha, nombreTienda, {
+      $inc: { rondas: -1 },
+    });
     res
       .status(200)
       .send({ message: "Cálculo de ronda realizado correctamente" });
@@ -164,23 +156,23 @@ async function calculoRonda(req, res) {
 }
 async function actualizarPuntosUltimoTorneoJugadores(jugadores) {
   for (let jugador of jugadores) {
-    let jugadorDB = await Jugador.findOne({ nombre: jugador });
+    let jugadorDB = await repositoryJugador.getJugador(jugador);
     if (!jugadorDB) {
       console.log(`Jugador '${jugador}' no encontrado`);
       continue;
     }
     let puntosTorneo = jugadorDB.puntosTorneo;
-    await Jugador.findOneAndUpdate(
-      { nombre: jugador },
-      { puntosUltimoTorneo: puntosTorneo, puntosTorneo: 0 }
-    );
+    await repositoryJugador.updateJugador(jugador, {
+      puntosUltimoTorneo: puntosTorneo,
+      puntosTorneo: 0,
+    });
   }
 }
 
 async function actualizarPuntosTorneo(jugadores) {
   for (let jugador of jugadores) {
     // Actualizar puntos del jugador
-    let jugadorDB = await Jugador.findOne({ nombre: jugador });
+    let jugadorDB = await repositoryJugador.getJugador(jugador);
 
     if (!jugadorDB) {
       console.log(`Jugador '${jugador}' no encontrado`);
@@ -190,10 +182,9 @@ async function actualizarPuntosTorneo(jugadores) {
     let resultado = jugadorDB.resultado;
     let nuevosPuntos = calculoResultado.sumarPuntos(puntosTorneo, resultado);
 
-    await Jugador.findOneAndUpdate(
-      { nombre: jugador },
-      { puntosTorneo: nuevosPuntos }
-    );
+    await repositoryJugador.updateJugador(jugador, {
+      puntosTorneo: nuevosPuntos,
+    });
   }
 }
 module.exports = {
