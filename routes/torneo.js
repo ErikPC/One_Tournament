@@ -9,8 +9,12 @@ api.get("/torneo/:fecha/:nombreTienda", TorneoController.getTorneo);
 api.delete("/torneo/:fecha/:nombreTienda", TorneoController.deleteTorneo);
 api.put("/torneo/:fecha/:nombreTienda", TorneoController.updateTorneo);
 api.put(
-  "/torneo/:fecha/:nombreTienda/:jugador",
+  "/torneo/:fecha/:nombreTienda/anadir/:jugador",
   TorneoController.añadirParticipante
+);
+api.put(
+  "/torneo/:fecha/:nombreTienda/eliminar/:jugador",
+  TorneoController.eliminarParticipante
 );
 api.get(
   "/torneo/:fecha/:nombreTienda/jugadores",
