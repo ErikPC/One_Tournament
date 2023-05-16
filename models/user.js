@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = moon.Schema;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: false,
@@ -12,11 +11,11 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: false,
+    required: true,
   },
   password: {
     type: String,
-    required: false,
+    required: true,
   },
 });
 
