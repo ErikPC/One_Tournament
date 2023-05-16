@@ -1,6 +1,7 @@
 const repository = require("../repository/repositoryTorneo");
 const repositoryJugador = require("../repository/repositoryJugador");
 const calculoResultado = require("../domain/resultado");
+const Torneo = require("../models/torneo");
 
 async function createTorneo(req, res) {
   try {
@@ -106,6 +107,41 @@ async function añadirParticipante(req, res) {
   });
 }
 
+async function eliminarParticipante(req, res) {
+  let fecha = req.params.fecha;
+  let nombreTienda = req.params.nombreTienda;
+  let jugador = req.params.jugador;
+  await repository.getTorneo(fecha, nombreTienda).then((response) => {
+    if (!response) {
+      res.status(404).send({ message: "Torneo no encontrado" });
+    } else {
+      let jugadores = response.jugadores;
+      if (!jugadores.includes(jugador)) {
+        res.status(400).send({ message: "Jugador no añadido" });
+      }
+      if (jugadores.length >= response.numeroParticipantes) {
+        res.status(400).send({ message: "Torneo completo" });
+      }
+      if (response.finalizada) {
+        res.status(400).send({ message: "Torneo finalizado" });
+      }
+      jugadores.pop(jugador);
+      Torneo.findOneAndUpdate(
+        { fecha: fecha, nombreTienda: nombreTienda },
+        { jugadores: jugadores }
+      )
+        .then((response) => {
+          res.status(200).send({
+            message: "Jugador eliminado correctamente",
+          });
+        })
+        .catch((err) => {
+          res.status(500).send({ message: err.message });
+        });
+    }
+  });
+}
+
 async function getListaJugadores(req, res) {
   try {
     let fecha = req.params.fecha;
@@ -194,6 +230,7 @@ module.exports = {
   updateTorneo,
   getTorneo,
   añadirParticipante,
+  eliminarParticipante,
   getListaJugadores,
   calculoRonda,
 };
