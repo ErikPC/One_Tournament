@@ -91,10 +91,8 @@ async function añadirParticipante(req, res) {
         res.status(400).send({ message: "Torneo finalizado" });
       }
       jugadores.push(jugador);
-      Torneo.findOneAndUpdate(
-        { fecha: fecha, nombreTienda: nombreTienda },
-        { jugadores: jugadores }
-      )
+      repository
+        .updateTorneo(fecha, nombreTienda, { jugadores: jugadores })
         .then((response) => {
           res.status(200).send({
             message: "Jugador añadido correctamente",
@@ -126,10 +124,8 @@ async function eliminarParticipante(req, res) {
         res.status(400).send({ message: "Torneo finalizado" });
       }
       jugadores.pop(jugador);
-      Torneo.findOneAndUpdate(
-        { fecha: fecha, nombreTienda: nombreTienda },
-        { jugadores: jugadores }
-      )
+      repository
+        .updateTorneo(fecha, nombreTienda, { jugadores: jugadores })
         .then((response) => {
           res.status(200).send({
             message: "Jugador eliminado correctamente",
