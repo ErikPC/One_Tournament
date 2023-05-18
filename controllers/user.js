@@ -1,5 +1,6 @@
 const repository = require("../repository/repositoryUser");
 const jwt = require("../services/jwt");
+const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 async function register(req, res) {
@@ -44,11 +45,28 @@ function login(req, res) {
       token: jwt.createToken(user, "12h"),
     });
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(500).send({ message: err.message });
+  }
+}
+
+function protected(req, res) {
+  res.status(200).send({ message: "Ruta protegida" });
+}
+
+function checkUserExist(user) {
+  if (user) {
+    throw new Error("The user already exists");
+  }
+}
+
+function checkMailAndPass(mail, pass) {
+  if (!mail || !pass) {
+    throw new Error("Email and password are required");
   }
 }
 
 module.exports = {
   register,
   login,
+  protected,
 };
