@@ -36,6 +36,7 @@ function login(req, res) {
     }
     const passOK = bcrypt.compareSync(password, user.password);
     if (!passOK) {
+      // sin especificar si es mail o contraseña para no dar pistas y crear agujeros de seguridad
       throw { msg: "Error mail o contraseña" };
     }
     res.status(200).send({
@@ -49,4 +50,5 @@ function login(req, res) {
 
 module.exports = {
   register,
+  login,
 };
