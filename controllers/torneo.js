@@ -177,6 +177,7 @@ async function calculoRonda(req, res) {
 
     // Actualizar ronda del torneo
     await repository.updateTorneo(fecha, nombreTienda, {
+      // operador $in para ir restando rondas
       $inc: { rondas: -1 },
     });
     res
