@@ -1,6 +1,7 @@
 const repository = require("../repository/repositoryTorneo");
 const repositoryJugador = require("../repository/repositoryJugador");
 const calculoResultado = require("../domain/resultado");
+const emparejamiento = require("../domain/emparejamiento");
 const Torneo = require("../models/torneo");
 
 async function createTorneo(req, res) {
@@ -138,13 +139,15 @@ async function eliminarParticipante(req, res) {
   });
 }
 
-async function getListaJugadores(req, res) {
+async function getPuntosJugadores(req, res) {
   try {
     let fecha = req.params.fecha;
     let nombreTienda = req.params.nombreTienda;
     let torneo = await repository.getTorneo(fecha, nombreTienda);
     if (torneo) {
-      res.status(200).send({ jugadores: torneo.jugadores });
+      res.status(200).send({
+        jugadores: await emparejamiento.getListaJugadores(torneo),
+      });
     } else {
       res.status(404).send({ message: "Torneo no encontrado" });
     }
@@ -228,6 +231,6 @@ module.exports = {
   getTorneo,
   añadirParticipante,
   eliminarParticipante,
-  getListaJugadores,
+  getPuntosJugadores,
   calculoRonda,
 };

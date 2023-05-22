@@ -18,7 +18,7 @@ api.put(
 );
 api.get(
   "/torneo/:fecha/:nombreTienda/jugadores",
-  TorneoController.getListaJugadores
+  TorneoController.getPuntosJugadores
 );
 api.put(
   "/torneo/:fecha/:nombreTienda/calcular/calculoRonda",
