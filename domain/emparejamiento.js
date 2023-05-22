@@ -2,11 +2,9 @@ repository = require("../repository/repositoryJugador");
 
 async function getListaJugadores(torneo) {
   let tabla = {};
-  console.log(torneo);
   if (torneo) {
     for (let i = 0; i < torneo.jugadores.length; i++) {
       let jugador = await repository.getJugador(torneo.jugadores[i]);
-      console.log(jugador);
       tabla[jugador.nombre] = jugador.puntosTorneo;
     }
 
