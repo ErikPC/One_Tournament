@@ -190,6 +190,37 @@ async function calculoRonda(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
+
+async function emparejarTorneo(req, res) {
+  try {
+    let fecha = req.params.fecha;
+    let nombreTienda = req.params.nombreTienda;
+
+    let torneo = await repository.getTorneo(fecha, nombreTienda);
+
+    if (!torneo) {
+      return res.status(404).send({ message: "Torneo no encontrado" });
+    } else if (torneo.finalizada) {
+      return res.status(400).send({ message: "Torneo finalizado" });
+    } else {
+      let listaJugadores = await emparejamiento.getListaJugadores(torneo); // Obtener la lista de jugadores
+
+      if (listaJugadores) {
+        let parejas = emparejamiento.emparejar(listaJugadores); // Emparejar los jugadores
+
+        res.status(200).send({
+          parejas: parejas,
+        });
+      } else {
+        return res
+          .status(404)
+          .send({ message: "No hay jugadores en el torneo" });
+      }
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
 async function actualizarPuntosUltimoTorneoJugadores(jugadores) {
   for (let jugador of jugadores) {
     let jugadorDB = await repositoryJugador.getJugador(jugador);
@@ -233,4 +264,5 @@ module.exports = {
   eliminarParticipante,
   getPuntosJugadores,
   calculoRonda,
+  emparejarTorneo,
 };

@@ -24,4 +24,8 @@ api.put(
   "/torneo/:fecha/:nombreTienda/calcular/calculoRonda",
   TorneoController.calculoRonda
 );
+api.get(
+  "/torneo/:fecha/:nombreTienda/emparejar",
+  TorneoController.emparejarTorneo
+);
 module.exports = api;
