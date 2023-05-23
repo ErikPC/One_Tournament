@@ -28,4 +28,8 @@ api.get(
   "/torneo/:fecha/:nombreTienda/emparejar",
   TorneoController.emparejarTorneo
 );
+api.put(
+  "/torneo/:fecha/:nombreTienda/pairing/:jugador1/:jugador2/",
+  TorneoController.pairing
+);
 module.exports = api;
