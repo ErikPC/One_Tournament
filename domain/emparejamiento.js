@@ -9,12 +9,12 @@ async function getListaJugadores(torneo) {
         listaJugadores.push({
           nombre: jugador.nombre,
           puntos: jugador.puntosTorneo,
+          pairing: jugador.pairing,
         });
       }
     }
 
-    listaJugadores.sort((a, b) => b.puntos - a.puntos);
-
+    listaJugadores.sort((a, b) => b.puntos - a.puntos || a.pairing - b.pairing);
     return listaJugadores;
   } else {
     return null;
