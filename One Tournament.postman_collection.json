@@ -6,16 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "Torneo",
+			"name": "Jugador",
 			"item": [
 				{
-					"name": "postTorneo",
+					"name": "createJugador",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreTorneo\": \"Torneo de fútbol\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-02\",\r\n  \"numeroParticipantes\": 12,\r\n  \"rondas\": 3,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n}\r\n",
+							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":21\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,7 +23,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/torneo",
+							"raw": "http://localhost:3000/api/jugador",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -31,19 +31,19 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"torneo"
+								"jugador"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getTorneos",
+					"name": "getJugadores",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo",
+							"raw": "http://localhost:3000/api/jugador",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -51,72 +51,19 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"torneo"
+								"jugador"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "deteleTorneo",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateTorneo",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"nombreTorneo\": \"Torneo de fútbol\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-01\",\r\n  \"numeroParticipantes\": 12,\r\n  \"rondas\": 3,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getTorneo",
+					"name": "getJugador",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
+							"raw": "http://localhost:3000/api/jugador/Fnandu",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,40 +71,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "añadirParticipante",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/Fnandu",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter",
+								"jugador",
 								"Fnandu"
 							]
 						}
@@ -165,12 +79,21 @@
 					"response": []
 				},
 				{
-					"name": "getListaJugadores",
+					"name": "updateJugador",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":22\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/jugadores",
+							"raw": "http://localhost:3000/api/jugador/Falopio/setResultado",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -178,22 +101,21 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter",
-								"jugadores"
+								"jugador",
+								"Falopio",
+								"setResultado"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "calculoRonda",
+					"name": "deleteJugador",
 					"request": {
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/calcular/calculoRonda",
+							"raw": "http://localhost:3000/api/jugador/Fnandu",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -201,11 +123,52 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"torneo",
-								"01-01-01",
-								"Neverwinter",
-								"calcular",
-								"calculoRonda"
+								"jugador",
+								"Fnandu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPuntosTorneo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/jugador/Fnandu/puntosTorneo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jugador",
+								"Fnandu",
+								"puntosTorneo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarResultado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/jugador/Fnandu/W",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jugador",
+								"Fnandu",
+								"W"
 							]
 						}
 					},
@@ -217,10 +180,19 @@
 			"name": "Tienda",
 			"item": [
 				{
-					"name": "getTiendas",
+					"name": "createTienda",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Neverwinter\",\r\n  \"direccion\": \"Calle Falsa 123\",\r\n  \"telefono\": \"555-1234\",\r\n  \"mail\": \"tiendaprueba@example.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:3000/api/tienda",
 							"protocol": "http",
@@ -237,13 +209,16 @@
 					"response": []
 				},
 				{
-					"name": "createTienda",
+					"name": "getTiendas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Neverwinter\",\r\n  \"direccion\": \"Calle Falsa 123\",\r\n  \"telefono\": \"555-1234\",\r\n  \"mail\": \"tiendaprueba@example.com\"\r\n}\r\n",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,36 +315,16 @@
 			]
 		},
 		{
-			"name": "Jugador",
+			"name": "Torneo",
 			"item": [
 				{
-					"name": "getJugadores",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/jugador",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"jugador"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createJugador",
+					"name": "postTorneo",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":21\r\n}",
+							"raw": "{\r\n  \"nombreTorneo\": \"Special Tournament Vol.1\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-02\",\r\n  \"numeroParticipantes\": 8,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -377,7 +332,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/jugador",
+							"raw": "http://localhost:3000/api/torneo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -385,20 +340,40 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"jugador"
+								"torneo"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "updateJugador",
+					"name": "getTorneos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTorneo",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":22\r\n}",
+							"raw": "{\r\n  \"nombreTorneo\": \"Torneo de fútbol\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-01\",\r\n  \"numeroParticipantes\": 12,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -406,7 +381,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Falopio/setResultado",
+							"raw": "http://localhost:3000/api/torneo/01-01-02/Neverwinter",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -414,21 +389,21 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"jugador",
-								"Falopio",
-								"setResultado"
+								"torneo",
+								"01-01-02",
+								"Neverwinter"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getJugador",
+					"name": "getTorneo",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Falopio",
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -436,8 +411,255 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"jugador",
-								"Falopio"
+								"torneo",
+								"01-01-01",
+								"Neverwinter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deteleTorneo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "añadirParticipante",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/anadir/Iker",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"anadir",
+								"Iker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarParticipante",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/eliminar/Josep",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"eliminar",
+								"Josep"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getListaJugadores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/jugadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"jugadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "emparejamiento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/emparejar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"emparejar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pairing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/pairing/Samu/Iker",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"pairing",
+								"Samu",
+								"Iker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculoRonda",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/calcular/calculoRonda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"torneo",
+								"01-01-01",
+								"Neverwinter",
+								"calcular",
+								"calculoRonda"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testing1@gmail.com\",\r\n    \"password\": \"1234\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjYzMWZjZWJkNmZlOTFkMGI5YTZmMSIsImlhdCI6MTY4NDQxOTM5MCwiZXhwIjoxNjg0NDYyNTkwfQ.8h_WvFjxSyfjVp3MAAcL85pV6bBMhaxGuT14hGXGIro",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testing1@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
 							]
 						}
 					},
@@ -446,31 +668,16 @@
 				{
 					"name": "New Request",
 					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"jugador",
-								"Fnandu"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getPuntosTorneo",
-					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjYzMWZjZWJkNmZlOTFkMGI5YTZmMSIsImlhdCI6MTY4NDQxOTM5MCwiZXhwIjoxNjg0NDYyNTkwfQ.8h_WvFjxSyfjVp3MAAcL85pV6bBMhaxGuT14hGXGIro",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Falopio/puntosTorneo",
+							"raw": "http://localhost:3000/api/protected",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -478,31 +685,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"jugador",
-								"Falopio",
-								"puntosTorneo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "actualizarResultado",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu/L",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"jugador",
-								"Fnandu",
-								"L"
+								"protected"
 							]
 						}
 					},
