@@ -174,7 +174,11 @@ async function calculoRonda(req, res) {
         { finalizada: true }
       );
       actualizarPuntosUltimoTorneoJugadores(jugadores);
-      return res.status(200).send({ message: "Torneo finalizado" });
+      eliminarParing(jugadores);
+      return res.status(200).send({
+        message: "Torneo finalizado",
+        resultado: await emparejamiento.getListaJugadores(torneo),
+      });
     }
     actualizarPuntosTorneo(jugadores);
 
@@ -190,7 +194,19 @@ async function calculoRonda(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
+async function pairing(req, res) {
+  try {
+    let jugador1 = req.params.jugador1;
+    let jugador2 = req.params.jugador2;
 
+    let ganador = await repositoryJugador.getJugador(jugador1);
+    let perdedor = await repositoryJugador.getJugador(jugador2);
+    emparejamiento.actualizarPairing(ganador, perdedor);
+    res.status(200).send({ message: "Pairing actualizado correctamente" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
 async function emparejarTorneo(req, res) {
   try {
     let fecha = req.params.fecha;
@@ -236,6 +252,19 @@ async function actualizarPuntosUltimoTorneoJugadores(jugadores) {
   }
 }
 
+async function eliminarParing(jugadores) {
+  for (let jugador of jugadores) {
+    let jugadorDB = await repositoryJugador.getJugador(jugador);
+    if (!jugadorDB) {
+      console.log(`Jugador '${jugador}' no encontrado`);
+      continue;
+    }
+    await repositoryJugador.updateJugador(jugador, {
+      pairing: 0,
+    });
+  }
+}
+
 async function actualizarPuntosTorneo(jugadores) {
   for (let jugador of jugadores) {
     // Actualizar puntos del jugador
@@ -265,4 +294,5 @@ module.exports = {
   getPuntosJugadores,
   calculoRonda,
   emparejarTorneo,
+  pairing,
 };
