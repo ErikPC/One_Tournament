@@ -62,7 +62,42 @@ function emparejar(listaJugadores) {
   return parejas;
 }
 
+async function actualizarPairing(ganador, perdedor) {
+  if (ganador.resultado === "D" && perdedor.resultado === "D") {
+    ganador.resultado = "D";
+    perdedor.resultado = "D";
+  } else if (ganador.puntos === perdedor.puntos) {
+    ganador.puntos += 1;
+    perdedor.puntos -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  } else if (ganador.puntos > perdedor.puntos) {
+    perdedor.puntos -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  } else {
+    ganador.puntos += 2;
+    perdedor.puntos -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  }
+
+  ganador.pairing += 1;
+  perdedor.pairing += 1;
+
+  // Guardar los cambios en la base de datos
+  await repository.updateJugador(ganador.nombre, {
+    pairing: ganador.pairing,
+    resultado: ganador.resultado,
+  });
+  await repository.updateJugador(perdedor.nombre, {
+    pairing: perdedor.pairing,
+    resultado: perdedor.resultado,
+  });
+}
+
 module.exports = {
   getListaJugadores,
   emparejar,
+  actualizarPairing,
 };
