@@ -29,7 +29,7 @@ async function getTorneos(req, res) {
 
 async function deleteTorneo(req, res) {
   try {
-    const { fecha, nombreTienda } = req.body;
+    const { fecha, nombreTienda } = req.params;
     let torneo = await repository.deleteTorneo(fecha, nombreTienda);
     if (torneo) {
       res.status(200).send({ message: "Torneo eliminado correctamente" });
@@ -187,7 +187,8 @@ async function calculoRonda(req, res) {
 }
 async function pairing(req, res) {
   try {
-    const { jugador1, jugador2 } = req.params;
+    let jugador1 = req.params.jugador1;
+    let jugador2 = req.params.jugador2;
 
     let ganador = await repositoryJugador.getJugador(jugador1);
     let perdedor = await repositoryJugador.getJugador(jugador2);
