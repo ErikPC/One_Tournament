@@ -78,7 +78,7 @@ async function getPuntosTorneo(req, res) {
 
 async function setResultado(req, res) {
   try {
-    const { nombre, resultado } = req.body;
+    const { nombre, resultado } = req.params;
     let jugador = await Jugador.findOneAndUpdate(
       { nombre: nombre },
       { resultado: resultado }
