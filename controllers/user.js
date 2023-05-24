@@ -1,6 +1,5 @@
 const repository = require("../repository/repositoryUser");
 const jwt = require("../services/jwt");
-const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 async function register(req, res) {
