@@ -165,6 +165,7 @@ async function calculoRonda(req, res) {
         { finalizada: true }
       );
       actualizarPuntosUltimoTorneoJugadores(jugadores);
+      actualizarPuntosTotalesJugadores(jugadores);
       eliminarParing(jugadores);
       return res.status(200).send({
         message: "Torneo finalizado",
@@ -238,6 +239,21 @@ async function actualizarPuntosUltimoTorneoJugadores(jugadores) {
     await repositoryJugador.updateJugador(jugador, {
       puntosUltimoTorneo: puntosTorneo,
       puntosTorneo: 0,
+    });
+  }
+}
+async function actualizarPuntosTotalesJugadores(jugadores) {
+  for (let jugador of jugadores) {
+    let jugadorDB = await repositoryJugador.getJugador(jugador);
+    if (!jugadorDB) {
+      console.log(`Jugador '${jugador}' no encontrado`);
+      continue;
+    }
+    let puntosTotales = jugadorDB.puntosTotales;
+    let puntosTorneo = jugadorDB.puntosTorneo;
+    let nuevosPuntos = puntosTotales + puntosTorneo;
+    await repositoryJugador.updateJugador(jugador, {
+      puntosTotales: nuevosPuntos,
     });
   }
 }
