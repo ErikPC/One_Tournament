@@ -29,8 +29,7 @@ async function getTorneos(req, res) {
 
 async function deleteTorneo(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.body;
     let torneo = await repository.deleteTorneo(fecha, nombreTienda);
     if (torneo) {
       res.status(200).send({ message: "Torneo eliminado correctamente" });
@@ -44,8 +43,7 @@ async function deleteTorneo(req, res) {
 
 async function updateTorneo(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.params;
     let update = req.body;
     let torneo = await repository.updateTorneo(fecha, nombreTienda, update);
     if (torneo) {
@@ -60,8 +58,7 @@ async function updateTorneo(req, res) {
 
 async function getTorneo(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.params;
     let torneo = await repository.getTorneo(fecha, nombreTienda);
     if (torneo) {
       res.status(200).send({ torneo: torneo });
@@ -74,9 +71,7 @@ async function getTorneo(req, res) {
 }
 
 async function añadirParticipante(req, res) {
-  let fecha = req.params.fecha;
-  let nombreTienda = req.params.nombreTienda;
-  let jugador = req.params.jugador;
+  const { fecha, nombreTienda, jugador } = req.params;
   await repository.getTorneo(fecha, nombreTienda).then((response) => {
     if (!response) {
       res.status(404).send({ message: "Torneo no encontrado" });
@@ -107,9 +102,7 @@ async function añadirParticipante(req, res) {
 }
 
 async function eliminarParticipante(req, res) {
-  let fecha = req.params.fecha;
-  let nombreTienda = req.params.nombreTienda;
-  let jugador = req.params.jugador;
+  const { fecha, nombreTienda, jugador } = req.params;
   await repository.getTorneo(fecha, nombreTienda).then((response) => {
     if (!response) {
       res.status(404).send({ message: "Torneo no encontrado" });
@@ -141,8 +134,7 @@ async function eliminarParticipante(req, res) {
 
 async function getPuntosJugadores(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.params;
     let torneo = await repository.getTorneo(fecha, nombreTienda);
     if (torneo) {
       res.status(200).send({
@@ -158,8 +150,7 @@ async function getPuntosJugadores(req, res) {
 
 async function calculoRonda(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.params;
 
     let torneo = await repository.getTorneo(fecha, nombreTienda);
     let jugadores = torneo.jugadores;
@@ -196,8 +187,7 @@ async function calculoRonda(req, res) {
 }
 async function pairing(req, res) {
   try {
-    let jugador1 = req.params.jugador1;
-    let jugador2 = req.params.jugador2;
+    const { jugador1, jugador2 } = req.params;
 
     let ganador = await repositoryJugador.getJugador(jugador1);
     let perdedor = await repositoryJugador.getJugador(jugador2);
@@ -209,8 +199,7 @@ async function pairing(req, res) {
 }
 async function emparejarTorneo(req, res) {
   try {
-    let fecha = req.params.fecha;
-    let nombreTienda = req.params.nombreTienda;
+    const { fecha, nombreTienda } = req.params;
 
     let torneo = await repository.getTorneo(fecha, nombreTienda);
 
@@ -219,10 +208,10 @@ async function emparejarTorneo(req, res) {
     } else if (torneo.finalizada) {
       return res.status(400).send({ message: "Torneo finalizado" });
     } else {
-      let listaJugadores = await emparejamiento.getListaJugadores(torneo); // Obtener la lista de jugadores
+      let listaJugadores = await emparejamiento.getListaJugadores(torneo);
 
       if (listaJugadores) {
-        let parejas = emparejamiento.emparejar(listaJugadores); // Emparejar los jugadores
+        let parejas = emparejamiento.emparejar(listaJugadores);
 
         res.status(200).send({
           parejas: parejas,
