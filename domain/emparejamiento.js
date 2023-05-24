@@ -66,24 +66,23 @@ async function actualizarPairing(ganador, perdedor) {
   if (ganador.resultado === "D" && perdedor.resultado === "D") {
     ganador.resultado = "D";
     perdedor.resultado = "D";
-  } else if (ganador.puntos === perdedor.puntos) {
-    ganador.puntos += 1;
-    perdedor.puntos -= 1;
+    ganador.pairing += 1;
+    perdedor.pairing += 1;
+  } else if (ganador.puntosTorneo === perdedor.puntosTorneo) {
+    ganador.pairing += 1;
+    perdedor.pairing -= 1;
     ganador.resultado = "W";
     perdedor.resultado = "L";
-  } else if (ganador.puntos > perdedor.puntos) {
-    perdedor.puntos -= 1;
+  } else if (ganador.puntosTorneo > perdedor.puntosTorneo) {
+    perdedor.pairing -= 1;
     ganador.resultado = "W";
     perdedor.resultado = "L";
   } else {
-    ganador.puntos += 2;
-    perdedor.puntos -= 1;
+    ganador.pairing += 2;
+    perdedor.pairing -= 1;
     ganador.resultado = "W";
     perdedor.resultado = "L";
   }
-
-  ganador.pairing += 1;
-  perdedor.pairing += 1;
 
   // Guardar los cambios en la base de datos
   await repository.updateJugador(ganador.nombre, {
