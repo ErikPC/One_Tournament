@@ -29,34 +29,40 @@ describe("test user auth", () => {
     const response = await request(app).post("/api/register").send(userPost);
     expect(response.statusCode).toBe(201);
   });
+
   let token;
+
   test("login user", async () => {
     const response = await request(app).post("/api/login").send(userPost);
     expect(response.statusCode).toBe(200);
     console.log(response.body);
     token = response.body.token;
   });
+
   test("login user with wrong password", async () => {
     const response = await request(app)
       .post("/api/login")
       .send({ email: userPost.email, password: "wrongPassword" });
     expect(response.statusCode).toBe(500);
   });
+
   test("login user with wrong email", async () => {
     const response = await request(app)
       .post("/api/login")
       .send({ email: "wrongEmail", password: userPost.password });
     expect(response.statusCode).toBe(500);
   });
+
   test("protected route fail", async () => {
     const response = await request(app).get("/api/protected");
     expect(response.statusCode).toBe(403);
   });
+
   test("protected route success", async () => {
     console.log(token);
     const response = await request(app)
       .get("/api/protected")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(200);
   });
 });
