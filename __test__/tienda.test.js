@@ -3,39 +3,35 @@ const app = require("../app");
 const mongoose = require("mongoose");
 
 const Tienda = require("../models/tienda");
+const User = require("../models/user");
 const tiendaPost = require("../db/tienda/tiendaPost.json");
 const tiendaUpdate = require("../db/tienda/tiendaUpdate.json");
 const userPost = require("../db/user/userPost.json");
+const user = require("../models/user");
 
 require("dotenv").config();
 
 const uri = process.env.MONGO_URI_TEST;
 jest.setTimeout(10000);
 
+let token = "";
 beforeAll(async () => {
   mongoose.set("strictQuery", false);
   await mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+  await request(app).post("/api/register").send(userPost);
+  const response = await request(app).post("/api/login").send(userPost);
+  token = response.body.token;
 });
 afterAll(async () => {
   await Tienda.deleteMany({});
+  await User.deleteMany({});
   await mongoose.connection.close();
 });
 
 describe("test tienda", () => {
-  let token;
-  async () => {
-    await request(app).post("/api/register").send(userPost);
-    token = (await request(app).post("/api/login").send(userPost)).body.token;
-  };
-
-  test("login user", async () => {
-    const response = await request(app).post("/api/login").send(userPost);
-    expect(response.statusCode).toBe(200);
-    token = response.body.token;
-  });
   test("register tienda", async () => {
     const response = await request(app)
       .post("/api/tienda")
