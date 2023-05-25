@@ -7,7 +7,6 @@ const User = require("../models/user");
 const tiendaPost = require("../db/tienda/tiendaPost.json");
 const tiendaUpdate = require("../db/tienda/tiendaUpdate.json");
 const userPost = require("../db/user/userPost.json");
-const user = require("../models/user");
 
 require("dotenv").config();
 
