@@ -7,6 +7,6 @@ const api = express.Router();
 
 api.post("/register", UserController.register);
 api.post("/login", UserController.login);
-api.get("/protected", [md_auth.ensureAuth], UserController.protected);
+api.get("/protected", [md_auth.ensureAuth], UserController.protectedRoute);
 
 module.exports = api;

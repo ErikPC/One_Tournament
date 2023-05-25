@@ -27,10 +27,10 @@ function checkMailAndPass(mail, pass) {
   }
 }
 
-function login(req, res) {
+async function login(req, res) {
   const { email, password } = req.body;
   try {
-    const user = repository.getUserByMail(email);
+    const user = await repository.getUserByMail(email);
     if (!user) {
       throw { msg: "Error mail o contraseña" };
     }
@@ -48,24 +48,12 @@ function login(req, res) {
   }
 }
 
-function protected(req, res) {
+function protectedRoute(req, res) {
   res.status(200).send({ message: "Ruta protegida" });
-}
-
-function checkUserExist(user) {
-  if (user) {
-    throw new Error("The user already exists");
-  }
-}
-
-function checkMailAndPass(mail, pass) {
-  if (!mail || !pass) {
-    throw new Error("Email and password are required");
-  }
 }
 
 module.exports = {
   register,
   login,
-  protected,
+  protectedRoute,
 };
