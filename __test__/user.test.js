@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
+const userLogin = require("../db/user/userLogin.json");
 
 require("dotenv").config();
 
@@ -35,7 +36,6 @@ describe("test user auth", () => {
   test("login user", async () => {
     const response = await request(app).post("/api/login").send(userPost);
     expect(response.statusCode).toBe(200);
-    console.log(response.body);
     token = response.body.token;
   });
 
@@ -59,7 +59,6 @@ describe("test user auth", () => {
   });
 
   test("protected route success", async () => {
-    console.log(token);
     const response = await request(app)
       .get("/api/protected")
       .set("Authorization", `${token}`);
