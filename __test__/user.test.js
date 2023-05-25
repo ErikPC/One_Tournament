@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
-const userLogin = require("../db/user/userLogin.json");
 
 require("dotenv").config();
 
