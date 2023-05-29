@@ -262,6 +262,33 @@ describe("test torneo", () => {
     repository.getTorneo.mockRestore();
   });
 
+  test("getListajugadores", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-01/Neverwinter/jugadores")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("getListajugadores err 404", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-02/Ludicon/jugadores")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("getListajugadores err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en getListaJugadores");
+    });
+
+    const response = await request(app)
+      .get("/api/torneo/01-01-02/Neverwinter/jugadores")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
+
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")
