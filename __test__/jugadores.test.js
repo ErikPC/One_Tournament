@@ -40,7 +40,7 @@ describe("test jugador", () => {
   });
 
   test("register jugador err 500", async () => {
-    // Simula un error en la función createJugador
+    // mockea un error para entrar en el catch
     jest.spyOn(repository, "createJugador").mockImplementation(() => {
       throw new Error("Error en createJugador");
     });
@@ -51,7 +51,7 @@ describe("test jugador", () => {
       .send(jugadorPost);
     expect(response.statusCode).toBe(500);
 
-    // Restaura la implementación original del repositorio
+    // restaura el mock para que no afecte a otros posibles tests
     repository.createJugador.mockRestore();
   });
   test("register jugador fail without token", async () => {
