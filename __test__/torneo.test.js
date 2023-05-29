@@ -229,6 +229,63 @@ describe("test torneo", () => {
     repository.getTorneo.mockRestore();
   });
 
+  test("Eliminar participante", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-01/Neverwinter/eliminar/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("eliminar participante - jugador no añadido", async () => {
+    const fecha = "2023-05-30";
+    const nombreTienda = "Tienda A";
+    const jugador = "Jugador C";
+
+    // Mockear la función getTorneo para simular un torneo existente sin el jugador
+    const mockGetTorneo = jest.spyOn(repository, "getTorneo");
+    mockGetTorneo.mockResolvedValueOnce({
+      jugadores: ["Jugador A", "Jugador B"],
+      finalizada: false,
+    });
+
+    const response = await request(app).delete(
+      `/api/participante/${fecha}/${nombreTienda}/${jugador}`
+    );
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({ message: "Jugador no añadido" });
+
+    // Restaurar el mock
+    mockGetTorneo.mockRestore();
+  });
+
+  test("Eliminar participante torneo finalizado", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-05/Neverwinter/eliminar/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("Eliminar participante err 404", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Ludicon/eliminar/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("Eliminar participante err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en eliminarParticipante");
+    });
+
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Neverwinter/eliminar/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
+
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")

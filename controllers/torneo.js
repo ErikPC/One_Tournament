@@ -110,12 +110,6 @@ async function eliminarParticipante(req, res) {
       return res.status(404).send({ message: "Torneo no encontrado" });
     }
     let jugadores = response.jugadores;
-    if (!jugadores.includes(jugador)) {
-      return res.status(400).send({ message: "Jugador no añadido" });
-    }
-    if (jugadores.length >= response.numeroParticipantes) {
-      return res.status(400).send({ message: "Torneo completo" });
-    }
     if (response.finalizada) {
       return res.status(400).send({ message: "Torneo finalizado" });
     }
