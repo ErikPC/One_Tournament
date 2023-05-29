@@ -2,7 +2,6 @@ const repository = require("../repository/repositoryTorneo");
 const repositoryJugador = require("../repository/repositoryJugador");
 const calculoResultado = require("../domain/resultado");
 const emparejamiento = require("../domain/emparejamiento");
-const Torneo = require("../models/torneo");
 
 async function createTorneo(req, res) {
   try {
