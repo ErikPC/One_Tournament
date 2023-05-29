@@ -93,6 +93,26 @@ describe("test tienda", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("get tienda by name err 500", async () => {
+    jest.spyOn(repository, "getTienda").mockImplementation(() => {
+      throw new Error("Error en getTienda");
+    });
+
+    const response = await request(app)
+      .get("/api/tienda/Neverwinter")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTienda.mockRestore();
+  });
+
+  test("get tienda by name err 404", async () => {
+    const response = await request(app)
+      .get("/api/tienda/Ludicon")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
   test("get tienda by name fail without token", async () => {
     const response = await request(app).get("/api/tienda/Neverwinter");
     expect(response.statusCode).toBe(403);
@@ -106,11 +126,40 @@ describe("test tienda", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("update tienda err 500", async () => {
+    jest.spyOn(repository, "updateTienda").mockImplementation(() => {
+      throw new Error("Error en updateTienda");
+    });
+
+    const response = await request(app)
+      .put("/api/tienda/Neverwinter")
+      .set("Authorization", `${token}`)
+      .send(tiendaUpdate);
+    expect(response.statusCode).toBe(500);
+
+    repository.updateTienda.mockRestore();
+  });
+
+  test("update tienda err 404", async () => {
+    const response = await request(app)
+      .put("/api/tienda/Ludicon")
+      .set("Authorization", `${token}`)
+      .send(tiendaUpdate);
+    expect(response.statusCode).toBe(404);
+  });
+
   test("update tienda fail without token", async () => {
     const response = await request(app)
       .put("/api/tienda/Neverwinter")
       .send(tiendaUpdate);
     expect(response.statusCode).toBe(403);
+  });
+
+  test("edelete tienda err 404", async () => {
+    const response = await request(app)
+      .delete("/api/tienda/Ludicon")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
   });
 
   test("delete tienda", async () => {
@@ -120,6 +169,18 @@ describe("test tienda", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("delete tienda err 500", async () => {
+    jest.spyOn(repository, "deleteTienda").mockImplementation(() => {
+      throw new Error("Error en deleteTienda");
+    });
+
+    const response = await request(app)
+      .delete("/api/tienda/Neverwinter")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.deleteTienda.mockRestore();
+  });
   test("delete tienda fail without token", async () => {
     const response = await request(app).delete("/api/tienda/Neverwinter");
     expect(response.statusCode).toBe(403);
