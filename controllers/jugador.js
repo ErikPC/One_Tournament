@@ -85,6 +85,8 @@ async function setResultado(req, res) {
     );
     if (jugador) {
       res.status(200).send({ message: "Resultado actualizado correctamente" });
+    } else {
+      res.status(404).send({ message: "Jugador no encontrado" });
     }
   } catch (err) {
     res.status(500).send({ message: err.message });
