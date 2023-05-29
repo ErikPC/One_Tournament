@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
@@ -8,6 +9,7 @@ const userPost = require("../db/user/userPost.json");
 require("dotenv").config();
 
 const uri = process.env.MONGO_URI_TEST;
+const SECRET_KEY = process.env.SECRET_TOKEN;
 
 jest.setTimeout(10000);
 
@@ -86,5 +88,15 @@ describe("test user auth", () => {
       .get("/api/protected")
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(200);
+  });
+
+  test("protected route error 404", async () => {
+    const invalidToken = "invalid_token";
+
+    const response = await request(app)
+      .get("/api/protected")
+      .set("Authorization", `${invalidToken}`);
+
+    expect(response.statusCode).toBe(404);
   });
 });
