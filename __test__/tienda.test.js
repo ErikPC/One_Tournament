@@ -7,6 +7,7 @@ const User = require("../models/user");
 const tiendaPost = require("../db/tienda/tiendaPost.json");
 const tiendaUpdate = require("../db/tienda/tiendaUpdate.json");
 const userPost = require("../db/user/userPost.json");
+const repository = require("../repository/repositoryTienda");
 
 require("dotenv").config();
 
@@ -39,6 +40,22 @@ describe("test tienda", () => {
     expect(response.statusCode).toBe(201);
   });
 
+  test("createTienda err 500", async () => {
+    // Mockea un error para entrar en el catch
+    jest.spyOn(repository, "createTienda").mockImplementation(() => {
+      throw new Error("Error en createTienda");
+    });
+
+    const response = await request(app)
+      .post("/api/tienda")
+      .set("Authorization", `${token}`)
+      .send(tiendaPost);
+    expect(response.statusCode).toBe(500);
+
+    // Restaura el mock para que no afecte a otros posibles tests
+    repository.createTienda.mockRestore();
+  });
+
   test("register tienda fail without token", async () => {
     const response = await request(app).post("/api/tienda").send(tiendaPost);
     expect(response.statusCode).toBe(403);
@@ -49,6 +66,19 @@ describe("test tienda", () => {
       .get("/api/tienda")
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(200);
+  });
+
+  test("get tienda err 500", async () => {
+    jest.spyOn(repository, "getTiendas").mockImplementation(() => {
+      throw new Error("Error en getTiendas");
+    });
+
+    const response = await request(app)
+      .get("/api/tienda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTiendas.mockRestore();
   });
 
   test("get tienda fail without token", async () => {
