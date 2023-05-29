@@ -142,31 +142,31 @@ async function calculoRonda(req, res) {
     const { fecha, nombreTienda } = req.params;
 
     let torneo = await repository.getTorneo(fecha, nombreTienda);
-    let jugadores = torneo.jugadores;
 
     if (!torneo) {
       return res.status(404).send({ message: "Torneo no encontrado" });
     } else if (torneo.finalizada) {
       return res.status(400).send({ message: "Torneo finalizado" });
-    } else if (torneo.rondas == 0) {
+    } else if (torneo.rondas === 0) {
       await repository.updateTorneo(fecha, nombreTienda, {
         finalizada: true,
       });
-      actualizarPuntosUltimoTorneoJugadores(jugadores);
-      actualizarPuntosTotalesJugadores(jugadores);
-      eliminarParing(jugadores);
+      actualizarPuntosUltimoTorneoJugadores(torneo.jugadores);
+      actualizarPuntosTotalesJugadores(torneo.jugadores);
+      eliminarParing(torneo.jugadores);
       return res.status(200).send({
         message: "Torneo finalizado",
         resultado: await emparejamiento.getListaJugadores(torneo),
       });
     }
+
+    let jugadores = torneo.jugadores;
     actualizarPuntosTorneo(jugadores);
 
-    // Actualizar ronda del torneo
     await repository.updateTorneo(fecha, nombreTienda, {
-      // operador $in para ir restando rondas
       $inc: { rondas: -1 },
     });
+
     res
       .status(200)
       .send({ message: "Cálculo de ronda realizado correctamente" });
@@ -174,6 +174,7 @@ async function calculoRonda(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
+
 async function pairing(req, res) {
   try {
     let jugador1 = req.params.jugador1;
