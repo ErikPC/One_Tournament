@@ -153,6 +153,40 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(403);
   });
 
+  test("getPuntosTorneo", async () => {
+    const response = await request(app)
+      .get("/api/jugador/Falopio/puntosTorneo")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+
+    expect(response.body.puntos).toEqual(
+      expect.objectContaining({
+        _id: expect.any(String),
+        puntosTorneo: 0,
+      })
+    );
+  });
+
+  test("getPuntosTorneo err 404", async () => {
+    const response = await request(app)
+      .get("/api/jugador/Fnandu/puntosTorneo")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("getPuntosTorneo err 500", async () => {
+    jest.spyOn(repository, "getPuntosTorneo").mockImplementation(() => {
+      throw new Error("Error en getPuntosTorneo");
+    });
+
+    const response = await request(app)
+      .get("/api/jugador/Falopio/puntosTorneo")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getPuntosTorneo.mockRestore();
+  });
+
   test("delete jugador", async () => {
     const response = await request(app)
       .delete("/api/jugador/Falopio")
