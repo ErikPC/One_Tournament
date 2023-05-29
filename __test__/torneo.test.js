@@ -7,6 +7,9 @@ require("dotenv").config();
 const Torneo = require("../models/torneo");
 const torneoPost = require("../db/torneo/torneoPost.json");
 const torneoUpdate = require("../db/torneo/torneoUpdate.json");
+const torneoCompleto = require("../db/torneo/torneoCompleto.json");
+const torneoJugadorExiste = require("../db/torneo/torneoJugadorExiste.json");
+const torneoFinalizado = require("../db/torneo/torneoFinalizado.json");
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
 const repository = require("../repository/repositoryTorneo");
@@ -164,6 +167,46 @@ describe("test torneo", () => {
       .put("/api/torneo/01-01-01/Neverwinter")
       .send(torneoUpdate);
     expect(response.statusCode).toBe(403);
+  });
+
+  test("Añadir participante", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-01/Neverwinter/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("AñadirParticipante torneo lleno", async () => {
+    await request(app)
+      .post("/api/torneo")
+      .set("Authorization", `${token}`)
+      .send(torneoCompleto);
+    const response = await request(app)
+      .put("/api/torneo/01-01-03/Neverwinter/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("Añadir participante ya existe", async () => {
+    await request(app)
+      .post("/api/torneo")
+      .set("Authorization", `${token}`)
+      .send(torneoJugadorExiste);
+    const response = await request(app)
+      .put("/api/torneo/01-01-03/Neverwinter/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("Añadir participante torneo finalizado", async () => {
+    await request(app)
+      .post("/api/torneo")
+      .set("Authorization", `${token}`)
+      .send(torneoFinalizado);
+    const response = await request(app)
+      .put("/api/torneo/01-01-03/Neverwinter/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
   });
 
   test("delete torneo", async () => {
