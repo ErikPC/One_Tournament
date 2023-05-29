@@ -216,6 +216,19 @@ describe("test torneo", () => {
     expect(response.statusCode).toBe(404);
   });
 
+  test("Añadir participante err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en anadirParticipante");
+    });
+
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Neverwinter/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
+
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")

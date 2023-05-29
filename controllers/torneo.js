@@ -104,33 +104,27 @@ async function añadirParticipante(req, res) {
 
 async function eliminarParticipante(req, res) {
   const { fecha, nombreTienda, jugador } = req.params;
-  await repository.getTorneo(fecha, nombreTienda).then((response) => {
+  try {
+    const response = await repository.getTorneo(fecha, nombreTienda);
     if (!response) {
-      res.status(404).send({ message: "Torneo no encontrado" });
-    } else {
-      let jugadores = response.jugadores;
-      if (!jugadores.includes(jugador)) {
-        res.status(400).send({ message: "Jugador no añadido" });
-      }
-      if (jugadores.length >= response.numeroParticipantes) {
-        res.status(400).send({ message: "Torneo completo" });
-      }
-      if (response.finalizada) {
-        res.status(400).send({ message: "Torneo finalizado" });
-      }
-      jugadores.pop(jugador);
-      repository
-        .updateTorneo(fecha, nombreTienda, { jugadores: jugadores })
-        .then((response) => {
-          res.status(200).send({
-            message: "Jugador eliminado correctamente",
-          });
-        })
-        .catch((err) => {
-          res.status(500).send({ message: err.message });
-        });
+      return res.status(404).send({ message: "Torneo no encontrado" });
     }
-  });
+    let jugadores = response.jugadores;
+    if (!jugadores.includes(jugador)) {
+      return res.status(400).send({ message: "Jugador no añadido" });
+    }
+    if (jugadores.length >= response.numeroParticipantes) {
+      return res.status(400).send({ message: "Torneo completo" });
+    }
+    if (response.finalizada) {
+      return res.status(400).send({ message: "Torneo finalizado" });
+    }
+    jugadores = jugadores.filter((j) => j !== jugador);
+    await repository.updateTorneo(fecha, nombreTienda, { jugadores });
+    return res.status(200).send({ message: "Jugador eliminado correctamente" });
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
 }
 
 async function getPuntosJugadores(req, res) {
