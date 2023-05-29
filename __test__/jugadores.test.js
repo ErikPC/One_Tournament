@@ -66,6 +66,19 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("get jugadores err 500", async () => {
+    jest.spyOn(repository, "getJugadores").mockImplementation(() => {
+      throw new Error("Error en getJugadores");
+    });
+
+    const response = await request(app)
+      .get("/api/jugador")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getJugadores.mockRestore();
+  });
+
   test("get jugador fail without token", async () => {
     const response = await request(app).get("/api/jugador");
     expect(response.statusCode).toBe(403);
