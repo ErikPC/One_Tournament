@@ -30,7 +30,31 @@ describe("test user auth", () => {
     expect(response.statusCode).toBe(201);
   });
 
-  let token;
+  test("register user user exists", async () => {
+    const response = await request(app)
+      .post("/api/register")
+      .send({ email: userPost.email, password: userPost.password });
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("register user without email", async () => {
+    const response = await request(app)
+      .post("/api/register")
+      .send({ password: userPost.password });
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("register user without password", async () => {
+    const response = await request(app)
+      .post("/api/register")
+      .send({ email: userPost.email });
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("register user without email and password", async () => {
+    const response = await request(app).post("/api/register").send({});
+    expect(response.statusCode).toBe(400);
+  });
 
   test("login user", async () => {
     const response = await request(app).post("/api/login").send(userPost);
