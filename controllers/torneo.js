@@ -271,6 +271,10 @@ async function actualizarPuntosTorneo(jugadores) {
     // Actualizar puntos del jugador
     let jugadorDB = await repositoryJugador.getJugador(jugador);
 
+    if (!jugadorDB) {
+      console.log(`Jugador '${jugador}' no encontrado`);
+      continue;
+    }
     let puntosTorneo = jugadorDB.puntosTorneo;
     let resultado = jugadorDB.resultado;
     let nuevosPuntos = calculoResultado.sumarPuntos(puntosTorneo, resultado);
