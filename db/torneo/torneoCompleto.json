@@ -3,8 +3,8 @@
     "nombreTienda": "Neverwinter",
     "fecha": "01-01-03",
     "numeroParticipantes": 0,
-    "rondas": 2,
+    "rondas": 0,
     "finalizada": false,
-    "jugadores":[]
+    "jugadores":["Josep", "Iker"]
   }
   

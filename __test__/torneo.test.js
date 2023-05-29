@@ -10,6 +10,8 @@ const torneoUpdate = require("../db/torneo/torneoUpdate.json");
 const torneoCompleto = require("../db/torneo/torneoCompleto.json");
 const torneoJugadorExiste = require("../db/torneo/torneoJugadorExiste.json");
 const torneoFinalizado = require("../db/torneo/torneoFinalizado.json");
+const jugador1 = require("../db/jugadores/jugador1.json");
+const jugador2 = require("../db/jugadores/jugador2.json");
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
 const repository = require("../repository/repositoryTorneo");
@@ -289,6 +291,52 @@ describe("test torneo", () => {
     repository.getTorneo.mockRestore();
   });
 
+  test("calculo ronda", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-01/Neverwinter/calcular/calculoRonda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("calculo ronda err 404", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Ludicon/calcular/calculoRonda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("calculo ronda err 400", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-05/Neverwinter/calcular/calculoRonda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
+  });
+  test("calculo ronda 0", async () => {
+    await request(app)
+      .post("/api/jugador")
+      .send(jugador1)
+      .set("Authorization", `${token}`);
+    await request(app)
+      .post("/api/jugador")
+      .send(jugador2)
+      .set("Authorization", `${token}`);
+    const response = await request(app)
+      .put("/api/torneo/01-01-03/Neverwinter/calcular/calculoRonda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+  test("calculo ronda err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en calculoRonda");
+    });
+
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Neverwinter/calcular/calculoRonda")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")
