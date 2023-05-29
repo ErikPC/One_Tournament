@@ -1,5 +1,4 @@
 const repository = require("../repository/repositoryJugador");
-const Jugador = require("../models/jugador");
 
 async function createJugador(req, res) {
   try {
@@ -79,10 +78,7 @@ async function getPuntosTorneo(req, res) {
 async function setResultado(req, res) {
   try {
     const { nombre, resultado } = req.params;
-    let jugador = await Jugador.findOneAndUpdate(
-      { nombre: nombre },
-      { resultado: resultado }
-    );
+    let jugador = await repository.setResultado(nombre, resultado);
     if (jugador) {
       res.status(200).send({ message: "Resultado actualizado correctamente" });
     } else {
