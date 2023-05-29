@@ -160,10 +160,9 @@ async function calculoRonda(req, res) {
     } else if (torneo.finalizada) {
       return res.status(400).send({ message: "Torneo finalizado" });
     } else if (torneo.rondas == 0) {
-      await Torneo.findOneAndUpdate(
-        { fecha: fecha, nombreTienda: nombreTienda },
-        { finalizada: true }
-      );
+      await repository.updateTorneo(fecha, nombreTienda, {
+        finalizada: true,
+      });
       actualizarPuntosUltimoTorneoJugadores(jugadores);
       actualizarPuntosTotalesJugadores(jugadores);
       eliminarParing(jugadores);
