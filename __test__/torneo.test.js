@@ -337,6 +337,33 @@ describe("test torneo", () => {
 
     repository.getTorneo.mockRestore();
   });
+
+  test("pairing", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-03/Neverwinter/pairing/Josep/Iker")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("pairing err 404", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Ludicon/pairing/Josep/Iker")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("pairing err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en pairing");
+    });
+
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Neverwinter/pairing/Josep/Iker")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")
