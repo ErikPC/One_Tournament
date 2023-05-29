@@ -25,17 +25,10 @@ function getTorneo(fecha, nombreTienda) {
   return Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda });
 }
 
-function getListaJugadores(fecha, nombreTienda) {
-  return Torneo.findOne({ fecha: fecha, nombreTienda: nombreTienda }).select(
-    "jugadores"
-  );
-}
-
 module.exports = {
   createTorneo,
   getTorneos,
   deleteTorneo,
   updateTorneo,
   getTorneo,
-  getListaJugadores,
 };
