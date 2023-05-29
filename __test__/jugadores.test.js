@@ -124,9 +124,31 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("update jugador err 404", async () => {
+    const response = await request(app)
+      .put("/api/jugador/Fnandu")
+      .set("Authorization", `${token}`)
+      .send(jugadorUpdate);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("update jugador err 500", async () => {
+    jest.spyOn(repository, "updateJugador").mockImplementation(() => {
+      throw new Error("Error en updateJugador");
+    });
+
+    const response = await request(app)
+      .put("/api/jugador/Falopio")
+      .set("Authorization", `${token}`)
+      .send(jugadorUpdate);
+    expect(response.statusCode).toBe(500);
+
+    repository.updateJugador.mockRestore();
+  });
+
   test("update jugador fail without token", async () => {
     const response = await request(app)
-      .put("/api/jugador/Pepe")
+      .put("/api/jugador/Falopio")
       .send(jugadorUpdate);
     expect(response.statusCode).toBe(403);
   });
