@@ -177,8 +177,13 @@ async function calculoRonda(req, res) {
 
 async function pairing(req, res) {
   try {
-    let jugador1 = req.params.jugador1;
-    let jugador2 = req.params.jugador2;
+    const { fecha, nombreTienda, jugador1, jugador2 } = req.params;
+
+    let torneo = await repository.getTorneo(fecha, nombreTienda);
+
+    if (!torneo) {
+      return res.status(404).send({ message: "Torneo no encontrado" });
+    }
 
     let ganador = await repositoryJugador.getJugador(jugador1);
     let perdedor = await repositoryJugador.getJugador(jugador2);
@@ -188,6 +193,7 @@ async function pairing(req, res) {
     res.status(500).send({ message: err.message });
   }
 }
+
 async function emparejarTorneo(req, res) {
   try {
     const { fecha, nombreTienda } = req.params;
