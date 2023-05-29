@@ -2,9 +2,9 @@
     "nombreTorneo": "Special Tournament Vol.1",
     "nombreTienda": "Neverwinter",
     "fecha": "01-01-03",
-    "numeroParticipantes": 1,
+    "numeroParticipantes": 0,
     "rondas": 2,
     "finalizada": false,
-    "jugadores":["Falopio"]
+    "jugadores":[]
   }
   

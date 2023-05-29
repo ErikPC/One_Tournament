@@ -193,7 +193,7 @@ describe("test torneo", () => {
       .set("Authorization", `${token}`)
       .send(torneoJugadorExiste);
     const response = await request(app)
-      .put("/api/torneo/01-01-03/Neverwinter/anadir/Falopio")
+      .put("/api/torneo/01-01-04/Neverwinter/anadir/Falopio")
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(400);
   });
@@ -204,9 +204,16 @@ describe("test torneo", () => {
       .set("Authorization", `${token}`)
       .send(torneoFinalizado);
     const response = await request(app)
-      .put("/api/torneo/01-01-03/Neverwinter/anadir/Falopio")
+      .put("/api/torneo/01-01-05/Neverwinter/anadir/Falopio")
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(400);
+  });
+
+  test("Añadir participante err 404", async () => {
+    const response = await request(app)
+      .put("/api/torneo/01-01-02/Ludicon/anadir/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
   });
 
   test("delete torneo", async () => {
