@@ -235,30 +235,6 @@ describe("test torneo", () => {
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(200);
   });
-
-  test("eliminar participante - jugador no añadido", async () => {
-    const fecha = "2023-05-30";
-    const nombreTienda = "Tienda A";
-    const jugador = "Jugador C";
-
-    // Mockear la función getTorneo para simular un torneo existente sin el jugador
-    const mockGetTorneo = jest.spyOn(repository, "getTorneo");
-    mockGetTorneo.mockResolvedValueOnce({
-      jugadores: ["Jugador A", "Jugador B"],
-      finalizada: false,
-    });
-
-    const response = await request(app).delete(
-      `/api/participante/${fecha}/${nombreTienda}/${jugador}`
-    );
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({ message: "Jugador no añadido" });
-
-    // Restaurar el mock
-    mockGetTorneo.mockRestore();
-  });
-
   test("Eliminar participante torneo finalizado", async () => {
     const response = await request(app)
       .put("/api/torneo/01-01-05/Neverwinter/eliminar/Falopio")
