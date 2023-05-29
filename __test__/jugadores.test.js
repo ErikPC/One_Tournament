@@ -187,6 +187,13 @@ describe("test jugador", () => {
     repository.getPuntosTorneo.mockRestore();
   });
 
+  test("getPuntosTorneo fail without token", async () => {
+    const response = await request(app).get(
+      "/api/jugador/Falopio/puntosTorneo"
+    );
+    expect(response.statusCode).toBe(403);
+  });
+
   test("delete jugador", async () => {
     const response = await request(app)
       .delete("/api/jugador/Falopio")
