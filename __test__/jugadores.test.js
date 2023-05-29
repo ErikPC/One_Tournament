@@ -194,6 +194,51 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(403);
   });
 
+  test("setResultado", async () => {
+    const response = await request(app)
+      .put(`/api/jugador/Falopio/W`)
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("setResultado err 404", async () => {
+    const response = await request(app)
+      .post("/api/jugador/Fnandu/W")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("setResultado err 500", async () => {
+    jest.spyOn(Jugador, "findOneAndUpdate").mockImplementation(() => {
+      throw new Error("Error en findOneAndUpdate");
+    });
+
+    const response = await request(app)
+      .put("/api/jugador/Falopio/W")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    Jugador.findOneAndUpdate.mockRestore();
+  });
+
+  test("setResultado err 404", async () => {
+    jest.spyOn(Jugador, "findOneAndUpdate").mockImplementation(() => {
+      return null; // Simulamos que no se encuentra el jugador
+    });
+
+    const response = await request(app)
+      .put("/api/jugador/Falopio/W")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+
+    Jugador.findOneAndUpdate.mockRestore();
+  });
+
+  test("setResultado fail without token", async () => {
+    const response = await request(app).put("/api/jugador/Falopio/W");
+    expect(response.statusCode).toBe(403);
+  });
+
   test("delete jugador", async () => {
     const response = await request(app)
       .delete("/api/jugador/Falopio")
