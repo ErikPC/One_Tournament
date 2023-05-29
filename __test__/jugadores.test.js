@@ -118,8 +118,28 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(200);
   });
 
+  test("delete jugador err 404", async () => {
+    const response = await request(app)
+      .delete("/api/jugador/Fnandu")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("delete jugador err 500", async () => {
+    jest.spyOn(repository, "deleteJugador").mockImplementation(() => {
+      throw new Error("Error en deleteJugador");
+    });
+
+    const response = await request(app)
+      .delete("/api/jugador/Falopio")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.deleteJugador.mockRestore();
+  });
+
   test("delete jugador fail without token", async () => {
-    const response = await request(app).delete("/api/jugador/Pepe");
+    const response = await request(app).delete("/api/jugador/Falopio");
     expect(response.statusCode).toBe(403);
   });
 });
