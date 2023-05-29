@@ -39,6 +39,21 @@ describe("test jugador", () => {
     expect(response.statusCode).toBe(201);
   });
 
+  test("register jugador err 500", async () => {
+    // Simula un error en la función createJugador
+    jest.spyOn(repository, "createJugador").mockImplementation(() => {
+      throw new Error("Error en createJugador");
+    });
+
+    const response = await request(app)
+      .post("/api/jugador")
+      .set("Authorization", `${token}`)
+      .send(jugadorPost);
+    expect(response.statusCode).toBe(500);
+
+    // Restaura la implementación original del repositorio
+    repository.createJugador.mockRestore();
+  });
   test("register jugador fail without token", async () => {
     const response = await request(app).post("/api/jugador").send(jugadorPost);
     expect(response.statusCode).toBe(403);
