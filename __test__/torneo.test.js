@@ -388,6 +388,10 @@ describe("test torneo", () => {
   });
 
   test("emparejar err 404", async () => {
+    await request(app)
+      .post("/api/torneo")
+      .send(torneoPost)
+      .set("Authorization", `${token}`);
     const response = await request(app)
       .get("/api/torneo/01-01-02/Neverwinter/emparejar")
       .set("Authorization", `${token}`);
