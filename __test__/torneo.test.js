@@ -15,6 +15,7 @@ const jugador2 = require("../db/jugadores/jugador2.json");
 const User = require("../models/user");
 const userPost = require("../db/user/userPost.json");
 const repository = require("../repository/repositoryTorneo");
+const { text } = require("express");
 
 const uri = process.env.MONGO_URI_TEST;
 jest.setTimeout(10000);
@@ -364,6 +365,48 @@ describe("test torneo", () => {
 
     repository.getTorneo.mockRestore();
   });
+
+  test("emparejar", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-01/Neverwinter/emparejar")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  test("emparejar err 400", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-05/Neverwinter/emparejar")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test("emparejar err 404", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-02/Ludicon/emparejar")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("emparejar err 404", async () => {
+    const response = await request(app)
+      .get("/api/torneo/01-01-02/Neverwinter/emparejar")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(404);
+  });
+
+  test("emparejar err 500", async () => {
+    jest.spyOn(repository, "getTorneo").mockImplementation(() => {
+      throw new Error("Error en emparejar");
+    });
+
+    const response = await request(app)
+      .get("/api/torneo/01-01-02/Neverwinter/emparejar")
+      .set("Authorization", `${token}`);
+    expect(response.statusCode).toBe(500);
+
+    repository.getTorneo.mockRestore();
+  });
+
   test("delete torneo", async () => {
     const response = await request(app)
       .delete("/api/torneo/01-01-01/Neverwinter")
