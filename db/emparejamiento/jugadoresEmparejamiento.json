@@ -8,15 +8,19 @@
   },
   {
     "nombre": "Noah",
-    "edad": 19
+    "edad": 19,
+    "resultado":"W"
   },
   {
     "nombre": "Ava",
-    "edad": 22
+    "edad": 22,
+    "resultado":"L"
   },
   {
     "nombre": "Ethan",
-    "edad": 26
+    "edad": 26,
+    "resultado":"W",
+    "puntosTorneo":3
   }  
 ] 
   
