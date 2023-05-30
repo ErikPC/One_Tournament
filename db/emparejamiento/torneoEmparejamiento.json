@@ -1,0 +1,14 @@
+{
+    "nombreTorneo": "Special Tournament Vol.1",
+    "nombreTienda": "Neverwinter",
+    "fecha": "01-01-03",
+    "numeroParticipantes": 5,
+    "rondas": 3,
+    "finalizada": false,
+    "jugadores":[  "Liam",
+    "Sophia",
+    "Noah",
+    "Ava",
+    "Ethan"]
+  }
+  
