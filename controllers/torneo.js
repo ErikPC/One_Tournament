@@ -207,7 +207,7 @@ async function emparejarTorneo(req, res) {
     } else {
       let listaJugadores = await emparejamiento.getListaJugadores(torneo);
 
-      if (listaJugadores) {
+      if (listaJugadores.length > 0) {
         let parejas = emparejamiento.emparejar(listaJugadores);
 
         res.status(200).send({
