@@ -77,7 +77,6 @@ describe("Emparejamiento", () => {
   test("actualizarPairing ganador con menos puntos", async () => {
     const noah = await Jugador.findOne({ nombre: "Noah" });
     const ethan = await Jugador.findOne({ nombre: "Ethan" });
-    console.log(noah);
     expect(noah.pairing).toBe(1);
     expect(ethan.pairing).toBe(0);
     await emparejamiento.actualizarPairing(noah, ethan);
