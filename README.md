@@ -95,9 +95,19 @@ yarn start
 
 ## Coverage Test:
 
-Con jest se pudo exportar un coverage. En el siguiente file aparece la cobertura de los test:
+Con jest se pudo exportar un coverage. En el siguiente [file.html](./coverage/lcov-report/index.html) aparece la cobertura de los test:
 
-[Coverage](./coverage/lcov-report/index.html)
+Aquí tienes un resumen rápido
+
+![](./docs/Coverage.PNG)
+
+## Metologías
+
+Se ha usado una metodología agil de desarrollo basada en sprints llamada Scrum.
+
+Se ha usado la idea de los sprints para tener claro como avanzar de forma continua y con las ideas claras.
+
+Su uso ha facilitado bastante el desarrollo de la aplicación. Pero no veo que se se adapte demasiado a imprevistos.
 
 ## Horas dedicadas
 
@@ -152,6 +162,3 @@ explicar que funciona , y la historias
 historias de mayor valor el orden
 
 max 20 min
-
-- clockify , contar que no lo has hecho por hacer tiempo intermitente
-- analisis y justificar tu desvio
