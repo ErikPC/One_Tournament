@@ -8,6 +8,29 @@ añadir bloques de codigo para ya tu sabe
 -manual de dspliegue
 yarn install y cositas
 
+## Introduccion
+
+### Que es?
+
+One Tournament es una API enfocada para tiendas de cartas que busquen tener torneos en tienda. Las tiendas obtendrán Endpoints para generar torneos y añadir los jugadores a dichos torneos.
+
+### Que objetivo tiene?
+
+Cumple como objetivo unificar la organizacion del torneo , con el calculo de rondas y resulado final, siguiendo las normas oficiales de torneo y evitar terceros para calcular las rondas.
+
+### Como determinar las rondas.
+
+| Número de Participantes | Número Esperado de Rondas Suizas | Jugadores Clasificados para el Corte Superior (si aplica) |
+| ----------------------- | -------------------------------- | --------------------------------------------------------- |
+| 4 - 8                   | 3 rondas                         | Ninguno                                                   |
+| 9 - 16                  | 4 rondas                         | Los 2 mejores                                             |
+| 17 - 32                 | 5 rondas                         | Los 4 mejores                                             |
+| 33 - 64                 | 6 rondas                         | Los 8 mejores                                             |
+| 65 - 128                | 7 rondas                         | Los 8 mejores                                             |
+| 129 - 256               | 8 rondas                         | Los 16 mejores                                            |
+| 257 - 512               | 9 rondas                         | Los 16 mejores                                            |
+| 513 - 1024              | 10 rondas                        | Los 32 mejores                                            |
+
 ## Instalacion del proyecto
 
 ### Requisitos Previos
@@ -93,3 +116,14 @@ yarn start
 [Nodemon](https://nodemon.io/) - Utilidad que monitoriza cambios en archivos y reinicia automáticamente la aplicación.
 
 [Supertest](https://www.npmjs.com/package/supertest) - Marco de pruebas de integración para aplicaciones HTTP.
+
+### Defensa proyecto truco
+
+explicar que funciona , y la historias
+
+historias de mayor valor el orden
+
+max 20 min
+
+- clockify , contar que no lo has hecho por hacer tiempo intermitente
+- analisis y justificar tu desvio
