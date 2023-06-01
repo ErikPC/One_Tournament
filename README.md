@@ -176,4 +176,4 @@ No hay un seguimiento correto de las horas. En el inicio estuve haciendo horas i
 
 [Supertest](https://www.npmjs.com/package/supertest) - Marco de pruebas de integración para aplicaciones HTTP.
 
-### Defensa proyecto truco
+[Ruling Tournament](https://en.onepiece-cardgame.com/pdf/tournament_rules_manual.pdf?20230407) - Reglamento oficial de torneos de One Piece TCG.
