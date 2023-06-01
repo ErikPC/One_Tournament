@@ -93,6 +93,27 @@ yarn start
 
 - `coverage`: Ejecuta las pruebas y genera un informe de cobertura utilizando Jest.
 
+- `docker`: Realiza la imagen del la API.
+
+- `docker-push`: Sube la imagen del docker para su despliegue.
+
+## Despligue
+
+El despliegue no ha podido ser realizado en DigitalOcean. Pero como solucion se ha preparado la creacion de un docker para facilitar su despliegue.
+
+### Docker
+
+Para desplegar la imagen, simplemente hay que descargarla de [erikpc](https://hub.docker.com/u/erikpc) o crear la imagen con los siguientes pasos:
+
+En la raíz del proyecto se crea la imagen del docker usando `yarn docker`
+
+Para desplegar la api con la imagen docker se lanza :
+
+`docker run -p puerto_host:puerto_contenedor -e MONGO_URI="mongodb+srv:<usuario>:<contraseña>@cluster0.qefhjrm.mongodb.net/test" -e PORT=3000 -e MONGO_URI_TEST="mongodb+srv://<usuario>:<contraseña>@cluster0.qefhjrm.mongodb net/test_one_tournament" erikpc/onetournament
+`
+
+Hay que cambiar <usuario> , <contraseña> por tu usuario y contrase de la base de datos de mongo y <puerto_host> , <puerto_contenedor> con los puertos que deseas utilizar en tu droplet.
+
 ## Coverage Test:
 
 Con jest se pudo exportar un coverage. En el siguiente [file.html](./coverage/lcov-report/index.html) aparece la cobertura de los test:
@@ -156,9 +177,3 @@ No hay un seguimiento correto de las horas. En el inicio estuve haciendo horas i
 [Supertest](https://www.npmjs.com/package/supertest) - Marco de pruebas de integración para aplicaciones HTTP.
 
 ### Defensa proyecto truco
-
-explicar que funciona , y la historias
-
-historias de mayor valor el orden
-
-max 20 min
