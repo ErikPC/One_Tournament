@@ -93,6 +93,34 @@ yarn start
 
 - `coverage`: Ejecuta las pruebas y genera un informe de cobertura utilizando Jest.
 
+## Coverage Test:
+
+Con jest se pudo exportar un coverage. En el siguiente file aparece la cobertura de los test:
+
+[Coverage](./coverage/lcov-report/index.html)
+
+## Horas dedicadas
+
+No hay un seguimiento correto de las horas. En el inicio estuve haciendo horas intermitentes , entoces a veces si me olvidaba activar el clockify, asi que no hay una inversion exacta.
+
+### Tiempo estimado
+
+![](./docs/Horas.PNG)
+
+#### Estimaciones correctas:
+
+- Crear CRUDs
+- Autenticación
+- Lógica
+- Documentacion
+
+#### Estimaciones incorrectas porque:
+
+- Crear Endpoints
+  - A medida que iba avanzando la aplicacion por comodidad del usuario han ido apareciendo endpoints y para ayuda de la lógica
+- El despliegue
+  - No se ha podido dar por bajo presupuesto.
+
 ## Bibliografía
 
 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Plataforma de base de datos en la nube de MongoDB.
