@@ -1,12 +1,6 @@
 # One_Tournament
 
--manual de usuario
-enpoints lo que pides
-
-añadir bloques de codigo para ya tu sabe
-
--manual de dspliegue
-yarn install y cositas
+---
 
 ## Introduccion
 
@@ -30,6 +24,10 @@ Cumple como objetivo unificar la organizacion del torneo , con el calculo de ron
 | 129 - 256               | 8 rondas                         | Los 16 mejores                                            |
 | 257 - 512               | 9 rondas                         | Los 16 mejores                                            |
 | 513 - 1024              | 10 rondas                        | Los 32 mejores                                            |
+
+### En la aplicacion
+
+Para que no haya fallos en a la hora de calcular punto se pide que se use la tabla anterior para determinar las rondas del torneo , que el jugador con el BYE , se tiene que actualizar su resultado como "W" y que los jugadores que obtengan empate , se tiene que actualizar su resultado como "D" a cada uno.
 
 ## Instalacion del proyecto
 
@@ -114,6 +112,108 @@ Para desplegar la api con la imagen docker se lanza :
 
 Hay que cambiar <usuario> , <contraseña> por tu usuario y contrase de la base de datos de mongo y <puerto_host> , <puerto_contenedor> con los puertos que deseas utilizar en tu droplet.
 
+## Lógica
+
+### Lista jugadores
+
+Se obtiene la lista de jugadores ordenada por puntos , seguido de pairing. Asi ya se obtendran el orden de posiciones.
+
+### Emparejamiento
+
+Después de obtener una lista de jugadores que participaran hay que hacer los emparejamientos, de forma que tambien hay que tener en cuenta si son impares , lo cual el jugador con menos puntuacion se le asignara un "BYE", que es una "W".
+
+```JS
+function emparejar(listaJugadores) {
+  let parejas = [];
+
+  for (let i = 0; i < listaJugadores.length - 1; i += 2) {
+    let jugador1 = listaJugadores[i];
+    let jugador2 = listaJugadores[i + 1];
+
+    // Crea la pareja
+    let pareja = {
+      jugador1: {
+        nombre: jugador1.nombre,
+        puntos: jugador1.puntos,
+      },
+      jugador2: {
+        nombre: jugador2.nombre,
+        puntos: jugador2.puntos,
+      },
+    };
+
+    parejas.push(pareja);
+  }
+
+  // Si queda un jugador sin pareja, asigna un "BYE" al jugador
+  if (listaJugadores.length % 2 !== 0) {
+    let jugadorBye = listaJugadores[listaJugadores.length - 1];
+
+    // asigna el jugador con "BYE"
+    let parejaBye = {
+      jugador1: {
+        nombre: jugadorBye.nombre,
+        puntos: jugadorBye.puntos,
+        bye: true,
+      },
+    };
+
+    parejas.push(parejaBye);
+  }
+
+  return parejas;
+}
+```
+
+### Pairing
+
+El pairing es algo parecido a una subpuntuacion que obtienen los jugadores para determinar quien esta mas alto en la tabla de puntos. La manera en que la determino es pasandole el ganador y luego el perdedor. La puntuacion se modificará en funcion de cuantos puntos tengan en el torneo los jugadores.
+
+Para más informacion le recomiendo que en la bibliografía vaya Ruling Tournament , , para ver especificamente el funcionamiento
+
+```JS
+async function actualizarPairing(ganador, perdedor) {
+  if (ganador.resultado === "D" && perdedor.resultado === "D") {
+    ganador.resultado = "D";
+    perdedor.resultado = "D";
+    ganador.pairing += 1;
+    perdedor.pairing += 1;
+  } else if (ganador.puntosTorneo === perdedor.puntosTorneo) {
+    ganador.pairing += 1;
+    perdedor.pairing -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  } else if (ganador.puntosTorneo > perdedor.puntosTorneo) {
+    perdedor.pairing -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  } else {
+    ganador.pairing += 2;
+    perdedor.pairing -= 1;
+    ganador.resultado = "W";
+    perdedor.resultado = "L";
+  }
+
+  // Guardar los cambios en la base de datos
+  await repository.updateJugador(ganador.nombre, {
+    pairing: ganador.pairing,
+    resultado: ganador.resultado,
+  });
+  await repository.updateJugador(perdedor.nombre, {
+    pairing: perdedor.pairing,
+    resultado: perdedor.resultado,
+  });
+}
+```
+
+### Puntuaje
+
+La puntuacion es simple:
+
+- 3 Puntos en caso de victoria
+- 0 Puntos en caso de derrota
+- 1 Punto en caso de empate
+
 ## Coverage Test:
 
 Con jest se pudo exportar un coverage. En el siguiente [file.html](./coverage/lcov-report/index.html) aparece la cobertura de los test:
@@ -132,7 +232,7 @@ Su uso ha facilitado bastante el desarrollo de la aplicación. Pero no veo que s
 
 ## Horas dedicadas
 
-No hay un seguimiento correto de las horas. En el inicio estuve haciendo horas intermitentes , entoces a veces si me olvidaba activar el clockify, asi que no hay una inversion exacta.
+No hay un seguimiento correcto de las horas. En el inicio estuve haciendo horas intermitentes , entoces a veces si me olvidaba activar el clockify, asi que no hay una inversion exacta.
 
 ### Tiempo estimado
 
