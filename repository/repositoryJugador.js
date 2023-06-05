@@ -26,10 +26,10 @@ function getPuntosTorneo(nombre) {
   return Jugador.findOne({ nombre: nombre }, { puntosTorneo: 1 });
 }
 
-function setResultado(nombre, resultado) {
-  return Jugador.findOneAndUpdate(
+async function setResultado(nombre, resultado) {
+  return await Jugador.findOneAndUpdate(
     { nombre: nombre },
-    { $push: { resultados: resultado } }
+    { resultado: resultado }
   );
 }
 

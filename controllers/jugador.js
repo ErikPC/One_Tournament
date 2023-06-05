@@ -78,8 +78,9 @@ async function getPuntosTorneo(req, res) {
 async function setResultado(req, res) {
   try {
     const { nombre, resultado } = req.params;
-    let jugador = await repository.setResultado(nombre, resultado);
+    let jugador = await repository.getJugador(nombre);
     if (jugador) {
+      await repository.setResultado(nombre, resultado);
       res.status(200).send({ message: "Resultado actualizado correctamente" });
     } else {
       res.status(404).send({ message: "Jugador no encontrado" });
