@@ -12,10 +12,16 @@
 					"name": "createJugador",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":21\r\n}",
+							"raw": "{\r\n    \"nombre\":\"Falopio\",\r\n    \"edad\":21\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,7 +47,13 @@
 					"name": "getJugadores",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/jugador",
 							"protocol": "http",
@@ -61,9 +73,15 @@
 					"name": "getJugador",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu",
+							"raw": "http://localhost:3000/api/jugador/Falopio",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -72,7 +90,14 @@
 							"path": [
 								"api",
 								"jugador",
-								"Fnandu"
+								"Falopio"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -82,10 +107,16 @@
 					"name": "updateJugador",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"Fnandu\",\r\n    \"edad\":22\r\n}",
+							"raw": "{\r\n    \"nombre\":\"Falopio\",\r\n    \"edad\":22,\r\n    \"pairing\":0,\r\n    \"puntosTorneo\":0\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,7 +124,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Falopio/setResultado",
+							"raw": "http://localhost:3000/api/jugador/Falopio",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -102,51 +133,7 @@
 							"path": [
 								"api",
 								"jugador",
-								"Falopio",
-								"setResultado"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteJugador",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"jugador",
-								"Fnandu"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getPuntosTorneo",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu/puntosTorneo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"jugador",
-								"Fnandu",
-								"puntosTorneo"
+								"Falopio"
 							]
 						}
 					},
@@ -156,9 +143,15 @@
 					"name": "actualizarResultado",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/jugador/Fnandu/W",
+							"raw": "http://localhost:3000/api/jugador/Falopio/W",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -167,8 +160,70 @@
 							"path": [
 								"api",
 								"jugador",
-								"Fnandu",
+								"Falopio",
 								"W"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPuntosTorneo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/jugador/Falopio/puntosTorneo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jugador",
+								"Falopio",
+								"puntosTorneo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteJugador",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk0ODc1MSwiZXhwIjoxNjg1OTkxOTUxfQ.QVTiHd1w0Z8_MNPztd7cmdP8yfv-e-1yPpSa161CVFA",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/jugador/Falopio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"jugador",
+								"Falopio"
+							],
+							"query": [
+								{
+									"key": "Auth",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -183,7 +238,13 @@
 					"name": "createTienda",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nombre\": \"Neverwinter\",\r\n  \"direccion\": \"Calle Falsa 123\",\r\n  \"telefono\": \"555-1234\",\r\n  \"mail\": \"tiendaprueba@example.com\"\r\n}\r\n",
@@ -215,7 +276,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -244,7 +311,13 @@
 					"name": "updateTienda",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nombre\": \"Neverwinter\",\r\n  \"direccion\": \"Calle Falsa 123\",\r\n  \"telefono\": \"12341234\",\r\n  \"mail\": \"tiendaprueba@example.com\"\r\n}\r\n",
@@ -274,7 +347,13 @@
 					"name": "getTienda",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/tienda/Neverwinter",
 							"protocol": "http",
@@ -295,7 +374,13 @@
 					"name": "deleteTienda",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/tienda/Neverwinter",
 							"protocol": "http",
@@ -307,6 +392,13 @@
 								"api",
 								"tienda",
 								"Neverwinter"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -321,10 +413,16 @@
 					"name": "postTorneo",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreTorneo\": \"Special Tournament Vol.1\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-02\",\r\n  \"numeroParticipantes\": 8,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n}\r\n",
+							"raw": "{\r\n  \"nombreTorneo\": \"Special Tournament Vol.1\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-02\",\r\n  \"numeroParticipantes\": 8,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[\"Falopio\",\"Iker\",\"Samu\"]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -350,7 +448,13 @@
 					"name": "getTorneos",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo",
 							"protocol": "http",
@@ -370,10 +474,16 @@
 					"name": "updateTorneo",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreTorneo\": \"Torneo de fútbol\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-01\",\r\n  \"numeroParticipantes\": 12,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[]\r\n  }",
+							"raw": "{\r\n  \"nombreTorneo\": \"Special Tournament Vol.1\",\r\n  \"nombreTienda\": \"Neverwinter\",\r\n  \"fecha\": \"01-01-01\",\r\n  \"numeroParticipantes\": 8,\r\n  \"rondas\": 2,\r\n  \"finalizada\": false,\r\n  \"jugadores\":[\"Falopio\",\"Iker\",\"Samu\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -401,7 +511,13 @@
 					"name": "getTorneo",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
 							"protocol": "http",
@@ -423,7 +539,13 @@
 					"name": "deteleTorneo",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter",
 							"protocol": "http",
@@ -445,9 +567,15 @@
 					"name": "añadirParticipante",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/anadir/Iker",
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/anadir/Fernando",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -459,7 +587,7 @@
 								"01-01-01",
 								"Neverwinter",
 								"anadir",
-								"Iker"
+								"Fernando"
 							]
 						}
 					},
@@ -469,9 +597,15 @@
 					"name": "eliminarParticipante",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/eliminar/Josep",
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/eliminar/Falopio",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -483,7 +617,14 @@
 								"01-01-01",
 								"Neverwinter",
 								"eliminar",
-								"Josep"
+								"Falopio"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -493,7 +634,13 @@
 					"name": "getListaJugadores",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/jugadores",
 							"protocol": "http",
@@ -516,7 +663,13 @@
 					"name": "emparejamiento",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/emparejar",
 							"protocol": "http",
@@ -539,9 +692,15 @@
 					"name": "Pairing",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/pairing/Samu/Iker",
+							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/pairing/Iker/Fernando",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -553,8 +712,8 @@
 								"01-01-01",
 								"Neverwinter",
 								"pairing",
-								"Samu",
-								"Iker"
+								"Iker",
+								"Fernando"
 							]
 						}
 					},
@@ -564,7 +723,13 @@
 					"name": "calculoRonda",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzQ2NmY0ZjQ1OTg0OGY3YTAzNGFmYSIsImlhdCI6MTY4NTk1MDExNiwiZXhwIjoxNjg1OTkzMzE2fQ.HgYfutw2WfuVU4Fs_XfwzqrlTAkUVUX7FqBkdlfnVYE",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/api/torneo/01-01-01/Neverwinter/calcular/calculoRonda",
 							"protocol": "http",
@@ -587,7 +752,7 @@
 			]
 		},
 		{
-			"name": "user",
+			"name": "User",
 			"item": [
 				{
 					"name": "register",
@@ -596,7 +761,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"testing1@gmail.com\",\r\n    \"password\": \"1234\"\r\n}\r\n",
+							"raw": "{\r\n    \"email\": \"testing2@gmail.com\",\r\n    \"password\": \"1234\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -624,15 +789,16 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "",
+								"key": "Authorization",
 								"value": "",
 								"type": "default",
 								"disabled": true
 							},
 							{
-								"key": "token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjYzMWZjZWJkNmZlOTFkMGI5YTZmMSIsImlhdCI6MTY4NDQxOTM5MCwiZXhwIjoxNjg0NDYyNTkwfQ.8h_WvFjxSyfjVp3MAAcL85pV6bBMhaxGuT14hGXGIro",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							},
 							{
 								"key": "token",
@@ -643,7 +809,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"testing1@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"raw": "{\r\n    \"email\": \"testing2@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -660,32 +826,6 @@
 							"path": [
 								"api",
 								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjYzMWZjZWJkNmZlOTFkMGI5YTZmMSIsImlhdCI6MTY4NDQxOTM5MCwiZXhwIjoxNjg0NDYyNTkwfQ.8h_WvFjxSyfjVp3MAAcL85pV6bBMhaxGuT14hGXGIro",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/api/protected",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"protected"
 							]
 						}
 					},
