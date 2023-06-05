@@ -169,7 +169,7 @@ function emparejar(listaJugadores) {
 
 El pairing es algo parecido a una subpuntuacion que obtienen los jugadores para determinar quien esta mas alto en la tabla de puntos. La manera en que la determino es pasandole el ganador y luego el perdedor. La puntuacion se modificará en funcion de cuantos puntos tengan en el torneo los jugadores.
 
-Para más informacion le recomiendo que en la bibliografía vaya Ruling Tournament , , para ver especificamente el funcionamiento
+Para más informacion le recomiendo que en la bibliografía vaya Ruling Tournament para ver especificamente el funcionamiento
 
 ```JS
 async function actualizarPairing(ganador, perdedor) {
