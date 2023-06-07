@@ -36,3 +36,6 @@ jobs:
           PORT: ${{ secrets.ENV_FILE.PORT }}
           SECRET_TOKEN: ${{ secrets.ENV_FILE.SECRET_TOKEN }}
           MONGO_URI_TEST: ${{ secrets.ENV_FILE.MONGO_URI_TEST }}
+
+      - name: imprimir docker corriendo
+        run: docker ps
