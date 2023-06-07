@@ -26,7 +26,13 @@ jobs:
 
       - name: Iniciar contenedor de Docker
         run: |
-          docker run -d -p 8080:8080 \
-          --name onetournament \
-          --env-file .env \
-          erikpc/onetournament
+          echo "$MONGO_URI" > .env
+          echo "$PORT" >> .env
+          echo "$SECRET_TOKEN" >> .env
+          echo "$MONGO_URI_TEST" >> .env
+          docker run -d -p 8080:8080 --env-file .env my-api
+        env:
+          MONGO_URI: ${{ secrets.ENV_FILE.MONGO_URI }}
+          PORT: ${{ secrets.ENV_FILE.PORT }}
+          SECRET_TOKEN: ${{ secrets.ENV_FILE.SECRET_TOKEN }}
+          MONGO_URI_TEST: ${{ secrets.ENV_FILE.MONGO_URI_TEST }}
