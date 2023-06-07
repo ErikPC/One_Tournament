@@ -99,6 +99,16 @@ yarn start
 
 El despliegue no ha podido ser realizado en DigitalOcean. Pero como solucion se ha preparado la creacion de un docker para facilitar su despliegue.
 
+### Github Actions
+
+Se ha realizado una simulacion del despliegue desde Github Actions. Haciendo un despliegue de una imagen docker del proyecto, junto con Github Secrets para tener las variables de entorno protegidas.
+
+GitHub Actions es un servicio de integración continua y entrega continua (CI/CD) proporcionado por GitHub. Permite automatizar y gestionar flujos de trabajo (workflows) para construir, probar, desplegar y entregar aplicaciones y proyectos de software de manera eficiente.
+
+Para el Github Secrets , se ha añadido el .env del proyecto en las settings.
+
+Para comprobar el Actions , hay una pesataña en la parte superior.
+
 ### Docker
 
 Para desplegar la imagen, simplemente hay que descargarla de [erikpc](https://hub.docker.com/u/erikpc) o crear la imagen con los siguientes pasos:
