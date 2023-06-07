@@ -22,7 +22,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Construir imagen de Docker
-        run: docker build -t my-api .
+        run: docker build -t onetournament .
 
       - name: Iniciar contenedor de Docker
         run: |
@@ -30,7 +30,7 @@ jobs:
           echo "$PORT" >> .env
           echo "$SECRET_TOKEN" >> .env
           echo "$MONGO_URI_TEST" >> .env
-          docker run -d -p 8080:8080 --env-file .env my-api
+          docker run -d -p 8080:8080 --env-file .env onetournament
         env:
           MONGO_URI: ${{ secrets.ENV_FILE.MONGO_URI }}
           PORT: ${{ secrets.ENV_FILE.PORT }}
@@ -38,4 +38,4 @@ jobs:
           MONGO_URI_TEST: ${{ secrets.ENV_FILE.MONGO_URI_TEST }}
 
       - name: imprimir docker corriendo
-        run: docker ps
+        run: docker ps -a
