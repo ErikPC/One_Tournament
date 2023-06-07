@@ -1,0 +1,31 @@
+{
+  "name": "one_tournament",
+  "version": "1.0.0",
+  "description": "app gestion torneos",
+  "main": "index.js",
+  "repository": "https://github.com/ErikPC/One_Tournament",
+  "author": "ErikPC <epardillo@cifpfbmoll.eu>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "docker": "docker build -t erikpc/onetournament .",
+    "docker-push": "docker push erikpc/onetournament"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "expess": "^0.0.1-security",
+    "express": "^4.18.2",
+    "jest": "^29.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
+    "mongoose": "^6.8.2",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
+  }
+}

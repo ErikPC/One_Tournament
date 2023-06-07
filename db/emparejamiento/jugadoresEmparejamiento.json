@@ -1,0 +1,26 @@
+[{
+    "nombre": "Liam",
+    "edad": 21
+  },
+  {
+    "nombre": "Sophia",
+    "edad": 24
+  },
+  {
+    "nombre": "Noah",
+    "edad": 19,
+    "resultado":"W"
+  },
+  {
+    "nombre": "Ava",
+    "edad": 22,
+    "resultado":"L"
+  },
+  {
+    "nombre": "Ethan",
+    "edad": 26,
+    "resultado":"W",
+    "puntosTorneo":3
+  }  
+] 
+  
