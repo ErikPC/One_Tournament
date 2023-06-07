@@ -227,7 +227,7 @@ describe("test jugador", () => {
     });
 
     const response = await request(app)
-      .put("/api/jugador/Falopio/W")
+      .put("/api/jugador/Pepe/W")
       .set("Authorization", `${token}`);
     expect(response.statusCode).toBe(404);
 
