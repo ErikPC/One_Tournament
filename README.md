@@ -107,10 +107,11 @@ En la raíz del proyecto se crea la imagen del docker usando `yarn docker`
 
 Para desplegar la api con la imagen docker se lanza :
 
-`docker run -p puerto_host:puerto_contenedor -e MONGO_URI="mongodb+srv:<usuario>:<contraseña>@cluster0.qefhjrm.mongodb.net/test" -e PORT=3000 -e MONGO_URI_TEST="mongodb+srv://<usuario>:<contraseña>@cluster0.qefhjrm.mongodb net/test_one_tournament" erikpc/onetournament
+`docker run -p puerto_host:puerto_contenedor -e MONGO_URI="mongodb+srv:<usuario>:<contraseña>@cluster0.qefhjrm.mongodb.net/test" -e SECRET_TOKEN="<hash>"
+ -e PORT=3000 -e MONGO_URI_TEST="mongodb+srv://<usuario>:<contraseña>@cluster0.qefhjrm.mongodb net/test_one_tournament" erikpc/onetournament
 `
 
-Hay que cambiar <usuario> , <contraseña> por tu usuario y contrase de la base de datos de mongo y <puerto_host> , <puerto_contenedor> con los puertos que deseas utilizar en tu droplet.
+Hay que cambiar <usuario> , <contraseña> por tu usuario y contrase de la base de datos de mongo y <puerto_host> , <puerto_contenedor> con los puertos que deseas utilizar en tu droplet. No hay que olvidar el <hash>, que es un conjunto de letras, numeros con mayusculas para encriptar la contraseña.
 
 ## Lógica
 
