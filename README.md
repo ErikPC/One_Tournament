@@ -263,6 +263,20 @@ No hay un seguimiento correcto de las horas. En el inicio estuve haciendo horas 
 - El despliegue
   - No se ha podido dar por bajo presupuesto.
 
+## Presuspuesto
+
+| Herramienta                           | Precio       |
+| ------------------------------------- | ------------ |
+| Mongo Atlas                           | 0.56€/hora   |
+| Postman                               | Gratis       |
+| Portátil                              | 500 €        |
+| Despliegue en Digital Ocean (12€/mes) | 12 €/mes     |
+| Programador                           | 30 €/hora    |
+| Visual Studio Code                    | Gratis       |
+| **Total**                             | **€3860.20** |
+
+Este presupuesto consta de 135 horas de trabajo del programador un portatil y un mes del uso de la base de datos y del Despliegue.
+
 ## Bibliografía
 
 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Plataforma de base de datos en la nube de MongoDB.
