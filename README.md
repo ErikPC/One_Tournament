@@ -97,7 +97,7 @@ yarn start
 
 ## Despligue
 
-El despliegue no ha podido ser realizado en DigitalOcean. Pero como solucion se ha preparado la creacion de un docker para facilitar su despliegue.
+El despliegue en DigitalOcean: [http://epardillo.bounceme.net]()
 
 ### Github Actions
 
