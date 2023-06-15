@@ -97,7 +97,7 @@ yarn start
 
 ## Despligue
 
-El despliegue en DigitalOcean:[Raíz](http://epardillo.bounceme.net/)
+El despliegue en DigitalOcean: [http://epardillo.bounceme.net/](http://epardillo.bounceme.net/api/protected)
 
 El Dominio se ha conseguido a través de No-Ip que ofrece uno gratuito a los usuarios.
 
