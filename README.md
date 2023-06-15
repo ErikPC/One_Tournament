@@ -12,6 +12,10 @@ One Tournament es una API enfocada para tiendas de cartas que busquen tener torn
 
 Cumple como objetivo unificar la organizacion del torneo , con el calculo de rondas y resulado final, siguiendo las normas oficiales de torneo y evitar terceros para calcular las rondas.
 
+### Descripcion tecnica
+
+La API esta desarrollada en NodeJS con Express y MongoDB como base de datos.Con Autenticacion con rutas protegidas con jwt .Se ha usado Docker en Digital Ocean para el despliegue de la API.
+
 ### Como determinar las rondas.
 
 | Número de Participantes | Número Esperado de Rondas Suizas | Jugadores Clasificados para el Corte Superior (si aplica) |
