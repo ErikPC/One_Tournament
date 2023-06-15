@@ -2,13 +2,13 @@
 
 ---
 
-## Introduccion
+## Epígrafe
 
-### Que es?
+### Introduccion
 
 One Tournament es una API enfocada para tiendas de cartas que busquen tener torneos en tienda. Las tiendas obtendrán Endpoints para generar torneos y añadir los jugadores a dichos torneos.
 
-### Objetivos?
+### Objetivos
 
 Cumple como objetivo unificar la organizacion del torneo , con el calculo de rondas y resulado final, siguiendo las normas oficiales de torneo y evitar terceros para calcular las rondas.
 
@@ -242,7 +242,8 @@ Se ha usado la idea de los sprints para tener claro como avanzar de forma contin
 Su uso ha facilitado bastante el desarrollo de la aplicación. Pero no veo que se se adapte demasiado a imprevistos.
 
 ## Gitflow
-Se han ido utilizando conventional commits en la rama develop, que es la utilizada para desarrollo y cuando la API ha llegado a los requisitos del despliegue, se ha mergeado a main. Rama donde sólo se van a mergear versiones que estén listas. 
+
+Se han ido utilizando conventional commits en la rama develop, que es la utilizada para desarrollo y cuando la API ha llegado a los requisitos del despliegue, se ha mergeado a main. Rama donde sólo se van a mergear versiones que estén listas.
 
 ## Horas dedicadas
 
