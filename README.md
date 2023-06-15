@@ -97,7 +97,16 @@ yarn start
 
 ## Despligue
 
-El despliegue en DigitalOcean: [http://epardillo.bounceme.net]()
+El despliegue en DigitalOcean:[Raíz](http://epardillo.bounceme.net/)
+
+El Dominio se ha conseguido a través de No-Ip que ofrece uno gratuito a los usuarios.
+
+Para el uso recordar que se tienen que añadir /api/X
+
+X: dependiendo de lo que quieras usar , recordar el login , y enviar la cabezaera.
+
+Comprobante del postman conectandome a la api.
+![](./docs/ComprobanteDespliegue.PNG)
 
 ### Github Actions
 
