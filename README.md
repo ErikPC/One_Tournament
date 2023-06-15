@@ -116,6 +116,15 @@ X: dependiendo de lo que quieras usar , recordar el login , y enviar la cabezaer
 Comprobante del postman conectandome a la api.
 ![](./docs/ComprobanteDespliegue.PNG)
 
+User de prueba:
+
+```
+{
+    "email": "testing2@gmail.com",
+    "password": "1234"
+}
+```
+
 ### Github Actions
 
 Se ha realizado una simulacion del despliegue desde Github Actions. Haciendo un despliegue de una imagen docker del proyecto, junto con Github Secrets para tener las variables de entorno protegidas.
